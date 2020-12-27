@@ -51,6 +51,14 @@ public class User {
     public void setUser_tel(String user_tel) {
         this.user_tel = user_tel;
     }
+    @Override
+    public String toString() {
+        return "User [user_id=" + user_id + ", user_name=" + user_name
+                + ", user_password=" + user_password + ", user_sex=" + user_sex
+                + ", user_address=" + user_address + ", user_tel=" + user_tel
+                + "]";
+    }
+    
     
 }
     
