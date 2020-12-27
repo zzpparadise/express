@@ -38,7 +38,12 @@
 				
 		});
 	});
-	
+	//回车时，默认是登陆
+	 function keyLogin(){
+	 if(window.event.keyCode == 13){
+	  document.getElementById("submitBtn").click();
+	 }
+	 }
 	
 	
 	
@@ -46,7 +51,7 @@
 
 </head>
 
-<body>
+<body onkeydown="keyLogin();">
 	<div class="container">
 		<div class="row">
 			<div class="bg-success" style="height:100px;">
