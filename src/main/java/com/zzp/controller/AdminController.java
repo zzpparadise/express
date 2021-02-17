@@ -86,9 +86,9 @@ public class AdminController {
         return model;
     }
     //用户中心
-    @RequestMapping("/users")
+    @RequestMapping("/householders")
     public ModelAndView users(ModelAndView model,HttpSession session) {
-        model.setViewName("admin/users");
+        model.setViewName("admin/householders");
         return model;
     }
     

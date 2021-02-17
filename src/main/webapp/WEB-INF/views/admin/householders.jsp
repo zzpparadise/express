@@ -21,6 +21,31 @@
 
 </div>
 <script type="text/javascript">
+//页面加载完成以后，直接去发送一个ajax请求，要到分页数据
+var currentPage;//当前页
+var pages;//总页数
+	$(function() {
+	//去首页
+	to_page(1);
+	})
+	//跳转到指定的页码号
+	function to_page(pn) {
+		$.ajax({
+			url : "manageUsers",
+			data : "pn=" + pn,
+			type : "GET",
+			success : function(result) {
+				//解析并显示用户数据
+				build_user_table(result);
+				//解析显示分页信息
+				build_page_info(result);
+				//解析显示分页条
+				build_page_nav(result);
+				currentPage=result.extend.pageInfo.pageNum;
+				pages=result.extend.pageInfo.pages;
+			}
+		});
+	}
 </script>
 </body>
 </html>

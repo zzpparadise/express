@@ -31,6 +31,11 @@ public class AdminExpressServiceImpl implements AdminExpressService{
         ad.delExpress(delNums);
         
     }
+    @Override
+    public List<Express> getHouseholders() {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
 
 }
