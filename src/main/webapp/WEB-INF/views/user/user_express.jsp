@@ -62,7 +62,17 @@
 				</ul>
 				
 					<div class="form-group">
-						&nbsp;&nbsp;&nbsp;<input type="text" name="company" class="form-control" placeholder="快递公司">
+						&nbsp;&nbsp;&nbsp;<input type="text" name="company" class="form-control" placeholder="快递公司" list = "data-list">
+					<datalist id = "data-list">
+        						<option>顺丰速运</option>
+        						<option>韵达快递</option>
+        						<option>圆通速递</option>
+        						<option>申通快递</option>
+        						<option>京东快递</option>
+        						<option>中国邮政</option>
+        						<option>百世快递</option>
+        						<option>中通快递</option>
+    							</datalist>
 					</div>
 					<button type="button"  class="btn btn-default" id="select_btn">查找</button>
 				</form>

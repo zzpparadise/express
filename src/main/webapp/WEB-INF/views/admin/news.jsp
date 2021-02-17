@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
     <title></title>
     <link href="${pageContext.request.contextPath }/js/bstable/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath }/js/bstable/css/bootstrap-table.css" rel="stylesheet" type="text/css">   
@@ -51,9 +51,66 @@
 							<label for="inputEmail3" class="col-sm-2 control-label">快递公司</label>
 							<div class="col-sm-10">
 								<input type="email" class="form-control" name="express_company" id="express_company_add"
-									placeholder="address">
+									placeholder="address" list = "data-list">
+								<datalist id = "data-list">
+        						<option>顺丰速运</option>
+        						<option>韵达快递</option>
+        						<option>圆通速递</option>
+        						<option>申通快递</option>
+        						<option>京东快递</option>
+        						<option>中国邮政</option>
+        						<option>百世快递</option>
+        						<option>中通快递</option>
+    							</datalist>
 							</div>
 						</div>
+						
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">快递位置</label>
+							<div class="col-sm-10">
+							<select name="case_name" class="btn btn-default " id="case_name_add">
+								<option value="a">A</option>
+								<option value="b">B</option>
+								<option value="a">C</option>
+								<option value="b">D</option>
+								<option value="a">E</option>
+								<option value="b">F</option>
+							</select>
+							<select name="case_num" class="btn btn-default " id="case_num_add">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+								<option value="1">11</option>
+								<option value="2">12</option>
+								<option value="3">13</option>
+								<option value="4">14</option>
+								<option value="5">15</option>
+								<option value="6">16</option>
+								<option value="7">17</option>
+								<option value="8">18</option>
+								<option value="9">19</option>
+								<option value="10">20</option>
+								<option value="1">21</option>
+								<option value="2">22</option>
+								<option value="3">23</option>
+								<option value="4">24</option>
+								<option value="5">25</option>
+								<option value="6">26</option>
+								<option value="7">27</option>
+								<option value="8">28</option>
+								<option value="9">29</option>
+								<option value="10">30</option>
+							</select>						
+							</div>					
+						</div>
+						<!-- 
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-2 control-label">快递柜</label>
 							<div class="col-sm-2">
@@ -63,7 +120,7 @@
 							<input type="email" class="form-control" name="case_num" id="case_num_add">
 							</div>
 						</div>
-
+						 -->
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -329,19 +386,7 @@
 			}
 		});
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		//选择时间
 		 !function(){
 		        laydate.skin('danlan');

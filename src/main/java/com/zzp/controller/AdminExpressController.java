@@ -40,7 +40,7 @@ public class AdminExpressController {
         return Msg.success().add("pageInfo",page);
     }
     
-    //保存员工
+    //保存快递
     @RequestMapping(value="/addExpress",method=RequestMethod.POST)
     @ResponseBody
     public Msg saveUser(Express express) {

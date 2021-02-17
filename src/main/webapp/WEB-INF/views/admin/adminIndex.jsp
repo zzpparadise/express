@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>小区快递管理系统</title>
+    <title>首页</title>
     <script src="${pageContext.request.contextPath }/js/jquery/jQuery-2.2.0.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath }/js/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/css/font-awesome.min.css">
@@ -20,12 +20,9 @@
         <header class="main-header">
             <a href="javascript:void (0)" class="logo">
                 <span class="logo-mini"></span>
-                <span class="logo-lg">小区快递管理系统 </span>
+                <span class="logo-lg"><font size="4">小区物业及快递管理系统 </font></span>
             </a>
             <nav class="navbar navbar-static-top" style="display:block;font-weight: 500;font-size: 14px;color: #fff;padding-left: 10px">
-                <!--<div class="sidebar-toggle">-->
-                    <!--<span class="sr-only">天夏模板</span>-->
-                <!--</div>-->
                 <span class="index_top"><strong></strong></span>
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">

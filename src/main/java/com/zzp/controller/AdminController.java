@@ -17,7 +17,7 @@ import com.zzp.util.Msg;
 
 @Controller
 @RequestMapping(value="/admin")
-public class adminController {
+public class AdminController {
     @Autowired
     AdminService as;
     //管理员登录
@@ -79,10 +79,16 @@ public class adminController {
         model.setViewName("admin/home");
         return model;
     }
-  //内部首页
+    //快递中心
     @RequestMapping("/news")
     public ModelAndView news(ModelAndView model,HttpSession session) {
         model.setViewName("admin/news");
+        return model;
+    }
+    //用户中心
+    @RequestMapping("/users")
+    public ModelAndView users(ModelAndView model,HttpSession session) {
+        model.setViewName("admin/users");
         return model;
     }
     
