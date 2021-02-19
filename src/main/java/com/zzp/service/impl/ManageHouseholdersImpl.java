@@ -17,5 +17,15 @@ public class ManageHouseholdersImpl implements ManageHouseholders{
     public List<User> getHouseholders() {       
         return md.getHouseholders();
     }
+    @Override
+    public User getHolder(int user_id) {
+        
+        return md.selectByUser_id(user_id);
+    }
+    @Override
+    public void updateHolder(User user) {
+        
+        md.updateHolder(user);
+    }
     
 }

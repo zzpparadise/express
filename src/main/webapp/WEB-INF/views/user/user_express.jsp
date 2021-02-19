@@ -10,6 +10,7 @@
 <link href="${pageContext.request.contextPath }/css/bootstrap.min.css"
 	rel="stylesheet">
 <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 	<!-- 导航条 -->

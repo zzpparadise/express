@@ -4,6 +4,15 @@
 	<select id="getHouseholders" resultType="User">
 		select * from users where  is_master=1
 	</select>
-
-
+	<select id="selectByUser_id" parameterType="int" resultType="User">
+		select householder_name,user_sex,user_idnumber,hokou_address,live_date,
+		house_type,area,loupaihao,user_tel from users where user_id = #{user_id} 
+	</select>
+	<update id="updateHolder" parameterType="User">
+		update users set user_name=#{user_name},user_tel=#{user_tel},
+		user_sex=#{user_sex},householder_name=#{householder_name},user_idnumber=#{user_idnumber},
+		hokou_address=#{hokou_address},live_date=#{live_date},house_type=#{house_type},
+		area=#{area},loupaihao=#{loupaihao}
+		where user_id=#{user_id}
+	</update>
 </mapper>

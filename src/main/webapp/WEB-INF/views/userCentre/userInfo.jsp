@@ -30,10 +30,10 @@
 					<form class="form-horizontal">
 					
 						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
+							<label for="inputEmail3" class="col-sm-2 control-label">账号名</label>
 							<div class="col-sm-10">
 								<input type="email" class="form-control" name="user_name" id="userName_update_input"
-									placeholder="用户名">
+									placeholder="账号名">
 								<span class="help-block"></span>
 							</div>
 						</div>
@@ -57,7 +57,7 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-2 control-label">地址</label>
+							<label for="inputEmail3" class="col-sm-2 control-label">楼号</label>
 							<div class="col-sm-10">
 							<select name="building" class="btn btn-default " >
 								<option value=""></option>
@@ -76,7 +76,7 @@
 								<option value="8">8</option>
 								<option value="9">9</option>
 								<option value="10">10</option>
-							</select>栋
+							</select>
 							<select name="number2" class="btn btn-default " >
 								<option value=""></option>
 								<option value="3">3</option>
@@ -102,7 +102,7 @@
 								<option value="23">23</option>
 								<option value="24">24</option>
 								<option value="25">25</option>						
-							</select>楼
+							</select>
 							</div>					
 						</div>
 
@@ -165,9 +165,9 @@
 			<div style="height: 150px"></div>
 				<table class="table table-hover" id="user_information">
 					<tr><td>用户id</td><td id="userId"></td></tr>
-					<tr><td>用户名</td><td id="userName"></td></tr>
+					<tr><td>账号名</td><td id="userName"></td></tr>
 					<tr><td>性别</td><td id="userSex"></td></tr>
-					<tr><td>地址</td><td id="userAddress"></td></tr>
+					<tr><td>楼号</td><td id="userAddress"></td></tr>
 					<tr><td>电话</td><td id="userTel"></td></tr>
 				</table>
 				<button class="btn btn-primary col-md-4 col-md-offset-1" id="user_update_btn">修改个人信息</button>

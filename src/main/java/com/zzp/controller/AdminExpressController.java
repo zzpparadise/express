@@ -1,6 +1,7 @@
 package com.zzp.controller;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-
+import com.zzp.pojo.Admin;
 import com.zzp.pojo.Express;
 import com.zzp.pojo.User;
 import com.zzp.service.AdminExpressService;
@@ -31,8 +32,11 @@ public class AdminExpressController {
     
     @RequestMapping("/allUser")
     @ResponseBody
-    public Msg getUserWithJson(@RequestParam(value="pn",defaultValue="1")Integer pn) {
-      //在查询之前调用，传入页码，以及每页的大小
+    public Msg getUserWithJson(@RequestParam(value="pn",defaultValue="1")Integer pn,HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid();
+        //在查询之前调用，传入页码，以及每页的大小
         PageHelper.startPage(pn,5);//分页查询
         List<Express> users=ae.getAlls();
         //使用pageinfo包装查询结果,封装了详细的分页信息，传入连续显示的页数
@@ -40,10 +44,13 @@ public class AdminExpressController {
         return Msg.success().add("pageInfo",page);
     }
     
-    //保存快递
+    //新增快递
     @RequestMapping(value="/addExpress",method=RequestMethod.POST)
     @ResponseBody
-    public Msg saveUser(Express express) {
+    public Msg saveUser(Express express,HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid();
         //判断用户手机是否注册
         User user=us.findByTel(express.getUser_tel());
         if(user == null) {
@@ -61,14 +68,20 @@ public class AdminExpressController {
   //确认收货
     @ResponseBody
     @RequestMapping(value="/expressConfirm/{num}",method=RequestMethod.PUT)
-    public Msg deleteUser(@PathVariable("num")int num) {//从路径中取出num,转化成快递编号
+    public Msg deleteUser(@PathVariable("num")int num,HttpSession session) {//从路径中取出num,转化成快递编号
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid();
         ae.setFlag(num);        
         return Msg.success();
     }
   //删除勾选的快递
     @ResponseBody
     @RequestMapping(value="/expressDel/{nums}",method=RequestMethod.DELETE)
-    public Msg deleteUsers(@PathVariable("nums")String nums) {//从路径中取出account，转化成用户account
+    public Msg deleteUsers(@PathVariable("nums")String nums,HttpSession session) {//从路径中取出account，转化成用户account
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid();
         String[]str_userNames=nums.split(",");
         int delNums[] = new int[str_userNames.length];
         for(int i=0;i<str_userNames.length;i++) {

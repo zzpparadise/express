@@ -6,7 +6,7 @@ public class User {
     private int user_id;
     //JSR303校验
     @Pattern(regexp="(^[a-zA-Z0-9_-]{3,16}$)|(^[\\u2E80-\\u9FFF]{2,5})"
-            ,message="用户名只能是2-5位中文或者3-16位英文和数字的组合")
+            ,message="账号名只能是2-5位中文或者3-16位英文和数字的组合")
     private String user_name;
     @Pattern(regexp="^[a-zA-Z0-9_-]{6,16}$",message="密码只能是6-16位英文和数字的组合")
     private String user_password;
@@ -15,6 +15,15 @@ public class User {
     @Pattern(regexp="^[1][3,4,5,7,8][0-9]{9}$"
             ,message="手机号码格式错误")
     private String user_tel;
+    private String user_idnumber;
+    private String hokou_address;
+    private String area;
+    private String house_type;
+    private String live_date;
+    private String loupaihao;
+    private String householder_name;
+    private int is_master;
+    
     public int getUser_id() {
         return user_id;
     }
@@ -50,6 +59,56 @@ public class User {
     }
     public void setUser_tel(String user_tel) {
         this.user_tel = user_tel;
+    }
+    
+    
+    public String getUser_idnumber() {
+        return user_idnumber;
+    }
+    public void setUser_idnumber(String user_idnumber) {
+        this.user_idnumber = user_idnumber;
+    }
+    public String getHokou_address() {
+        return hokou_address;
+    }
+    public void setHokou_address(String hokou_address) {
+        this.hokou_address = hokou_address;
+    }
+    public String getArea() {
+        return area;
+    }
+    public void setArea(String area) {
+        this.area = area;
+    }
+    public String getHouse_type() {
+        return house_type;
+    }
+    public void setHouse_type(String house_type) {
+        this.house_type = house_type;
+    }
+    public String getLive_date() {
+        return live_date;
+    }
+    public void setLive_date(String live_date) {
+        this.live_date = live_date;
+    }
+    public String getLoupaihao() {
+        return loupaihao;
+    }
+    public void setLoupaihao(String loupaihao) {
+        this.loupaihao = loupaihao;
+    }
+    public String getHouseholder_name() {
+        return householder_name;
+    }
+    public void setHouseholder_name(String householder_name) {
+        this.householder_name = householder_name;
+    }
+    public int getIs_master() {
+        return is_master;
+    }
+    public void setIs_master(int is_master) {
+        this.is_master = is_master;
     }
     @Override
     public String toString() {

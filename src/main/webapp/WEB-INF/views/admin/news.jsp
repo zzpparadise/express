@@ -14,9 +14,13 @@
 	rel="stylesheet">
 	<script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath }/js/date/js/laydate.js"></script>
+	<style>
+		.table th{
+		text-align: center; 
+		}
+	</style>
 </head>
 <body style="background-color: #ecf0f5;font-family: 微软雅黑;color: #475059;min-width: 1000px;overflow: auto">
-<div class="news_main">
 	<!-- 添加用户的模态款 -->
 	<div class="modal fade" id="userAddModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
@@ -135,7 +139,7 @@
 
 
 <div >
-    <h6>待取快递列表</h6>
+    <h4>待取快递列表</h4>
 
     <div class="notice_check">
     
@@ -159,7 +163,7 @@
 				<div class="col-md-12">
 					<table class="table table-hover" id="user_table">
 						<thead>
-							<tr><th><input type="checkbox" id="check_all"/></th>
+							<tr><th ><input type="checkbox" id="check_all"/></th>
 								<th>编号</th>
 								<th>用户名</th>
 								<th>手机号</th>
@@ -167,7 +171,7 @@
 								<th>到达日期</th>
 								<th>快递公司</th>
 								<th>取货码</th>
-								<th>操作</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -181,7 +185,7 @@
 			<div class="col-md-6" id="page_nav_area"></div>
 		</div>
 </div>
-</div>
+
 <script type="text/javascript">
 //页面加载完成以后，直接去发送一个ajax请求，要到分页数据
 	var currentPage;//当前页
@@ -197,6 +201,7 @@
 				data : "pn=" + pn,
 				type : "GET",
 				success : function(result) {
+					if(result.code==100){
 					//解析并显示用户数据
 					build_user_table(result);
 					//解析显示分页信息
@@ -205,6 +210,10 @@
 					build_page_nav(result);
 					currentPage=result.extend.pageInfo.pageNum;
 					pages=result.extend.pageInfo.pages;
+					}
+					else{
+						alert(result.msg);
+					}
 				}
 			});
 		}
@@ -222,14 +231,13 @@
 				var arrive = $("<td></td>").append(item.arrive);
 				var express_company = $("<td></td>").append(item.express_company);
 				var code = $("<td></td>").append(item.code);
-				var editBtn = $("<button></button>").addClass(
-						"btn btn-primary btn-sm edit_btn").append("编辑");
+				//var editBtn = $("<button></button>").addClass(
+				//		"btn btn-primary btn-sm edit_btn").append("编辑");
 				//为编辑按钮添加一个自定义的属性，来表示当前用户的account
-				editBtn.attr("edit-account",item.account);
+				//editBtn.attr("edit-account",item.account);
 				var delBtn = $("<button></button>").addClass(
 						"btn btn-success btn-sm del_btn").append("确认收货");
-				var btnTd = $("<td></td>").append(editBtn).append(" ").append(
-						delBtn);
+				var btnTd = $("<td></td>").append(delBtn);
 
 				$("<tr></tr>").append(checkBoxTd).append(expressId)
 						.append(userName).append(userTel).append(case_name)
@@ -320,6 +328,10 @@
 					  type:"POST",
 					  data:$("#userAddModal form").serialize(),
 					  success:function(result){
+						  if(result.code==300){
+							  alert(result.msg);
+							  return;
+						  }
 						  alert(result.msg);
 						  if(result.code == 100){
 							  $("#userAddModal").modal("hide");
@@ -344,6 +356,11 @@
 					url:"expressConfirm/"+num,
 					type:"PUT",
 					success:function(result){
+						if(result.code==300){
+							alert(result.msg);
+							  return;
+						}
+						
 						to_page(currentPage);
 					}
 				});
@@ -378,6 +395,10 @@
 					url:"expressDel/"+nums,
 					type:"DELETE",
 					success:function(result){
+						if(result.code==300){
+							alert(result.msg);
+							  return;
+						}						
 						alert(result.msg);
 						to_page(currentPage);
 					}
