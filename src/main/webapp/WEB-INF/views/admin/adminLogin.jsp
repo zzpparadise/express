@@ -50,11 +50,18 @@
 </head>
 
 <body onkeydown="keyLogin();">
-	<div class="container">		
-		<div class="row">		
+		<div class="container">
+			<div class="row">
+			<div class="bg-success" style="height:100px;">
+				<br/>
+				<p style="font-size:30px;font-family:华文行楷 ">小区物业及快递服务系统-管理员登录</p>
+			</div>
+		</div>		
+		<div class="row"style="background-image:url(${pageContext.request.contextPath }/img/background.jpg);
+		background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">		
 			<div style="height:100px"></div>
 			<div class="col-md-4 col-md-offset-4">
-			<h2>管理员登录</h2>
+			
 				<br/><br/>
 				<form action="login" method="post" id="form" class="form-horizontal">
 					<div class="form-group">
@@ -97,7 +104,18 @@
 			</div>
 			<div class="col-md-4 col-md-offset-4" style="height:100px"></div>
 		</div>
-		
+		<div class="row">
+			<div class="bg-success container " style="height:100px">
+				<br/>
+				<div class="col-md-1 col-md-offset-3"><a href="#" style="color:black">关于我们</a></div>
+				<div class="col-md-1"><a href="#" style="color:black">联系我们</a></div>
+				<div class="col-md-1"><a href="#" style="color:black">用户协议</a></div>
+				<div class="col-md-1"><a href="#" style="color:black">隐私政策</a></div>
+				<div class="col-md-1"><a href="#" style="color:black">帮助中心</a></div>
+				<div class="col-md-1"><a href="#" style="color:black">加入我们</a></div>
+			</div>
+		</div>
+			
 		</div>
 </body>
 </html>

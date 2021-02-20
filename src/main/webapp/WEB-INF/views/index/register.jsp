@@ -17,7 +17,7 @@
 		<div class="row">
 			<div class="bg-success" style="height:100px;">
 				<br/>
-				<p style="font-size:30px">小区快递管理系统-用户注册</p>
+				<p style="font-size:30px">小区物业及快递服务系统-用户注册</p>
 			</div>
 		</div>
 		<div class="row" style="background-image:url(${pageContext.request.contextPath }/img/background.jpg);
