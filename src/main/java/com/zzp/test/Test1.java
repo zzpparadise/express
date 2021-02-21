@@ -10,15 +10,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.zzp.dao.UserDao;
 import com.zzp.pojo.User;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:springConfig.xml")
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(locations = "classpath:springConfig.xml")
 public class Test1 {
-    @Autowired
-    UserDao dao;
+//    @Autowired
+//    UserDao dao;
     @Test
     public void test() {
-        User user = dao.findUserByTel("999999999");
-        System.out.println(user);
+        
     }
-
+  
 }

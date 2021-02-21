@@ -15,4 +15,10 @@ public interface ManageHouseholdersDao {
 
     public void updateHolder(User user);//修改户主信息
 
+    public void addHouseholder(User householder);//添加户主
+
+    public User selectByIdNumber(String user_idnumber);//查询身份证号是否存在
+
+    public void delhouseholders(String[] delNums);//删除勾选的用户
+
 }

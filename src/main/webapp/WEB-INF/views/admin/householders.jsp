@@ -100,7 +100,82 @@
 			</div>
 		</div>
 	</div>
-
+<!-- 添加用户信息的模态框 -->
+	<div class="modal fade" id="userAddModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">修改户主个人信息</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal">
+					
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">姓名</label>
+							<div class="col-sm-4">
+								<input type="email" class="form-control" name="householder_name" id="householder_name_add">
+								
+							</div>
+						<label for="inputEmail3" class="col-sm-2 control-label">性别</label>
+						<label class="radio-inline"> <input type="radio"
+							name="user_sex" id="man_update_add" value="男" >
+							男
+						</label> <label class="radio-inline"> <input type="radio"
+							name="user_sex" id="woman_update_add" value="女">
+							女
+						</label>
+						</div>						
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">身份证号</label>
+							<div class="col-sm-4">
+								<input type="email" class="form-control" name="user_idnumber" id="user_idnumber_add">			
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">户籍</label>
+							<div class="col-sm-4">
+								<input type="email" class="form-control" name="hokou_address" id="hokou_address_add">			
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">入住时间</label>
+							<div class="col-sm-4">
+								<input type="email" class="form-control" name="live_date" id="live_date_add">			
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">户型</label>
+							<div class="col-sm-4">
+								<input type="email" class="form-control" name="house_type" id="house_type_add">			
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">面积(m²)</label>
+							<div class="col-sm-4">
+								<input type="email" class="form-control" name="area" id="area_add">			
+							</div>
+							<label for="inputEmail3" class="col-sm-2 control-label">楼牌号</label>
+							<div class="col-sm-4">
+								<input type="email" class="form-control" name="loupaihao" id="loupaihao_add">			
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">联系电话</label>
+							<div class="col-sm-4">
+								<input type="email" class="form-control" name="user_tel" id="user_tel_add">			
+							</div>
+						
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="user_save_btn2">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
 <div >
     <h4>户主信息</h4>
 
@@ -114,8 +189,8 @@
 
 
         <div class="notice_nav r_right">
-            <a class="btn btn-default" id="user_add_modal_btn"><span class="glyphicon glyphicon-plus"></span>新增</a>
-            <a class="btn btn-default" id="express_del"><span class="glyphicon glyphicon-remove"></span>删除</a>
+            <a class="btn btn-default" id="user_add_btn"><span class="glyphicon glyphicon-plus"></span>新增</a>
+            <a class="btn btn-default" id="householder_del"><span class="glyphicon glyphicon-remove"></span>删除</a>
            	
         </div>       
     </div>  
@@ -126,7 +201,7 @@
 				<div class="col-md-12">
 					<table class="table table-hover" id="user_table">
 						<thead>
-							<tr><td></td>
+							<tr><th ><input type="checkbox" id="check_all"/></th>
 								<th>姓名</th>
 								<th>性别</th>
 								<th>身份证号</th>
@@ -321,14 +396,96 @@ var pages;//总页数
 						  alert("修改成功");
 						  $("#userEditModal").modal("hide");
 						  to_page(currentPage);
-					  }					
+					  }
+					if(result.code==300){
+						  alert(result.msg);
+						  return;
+					  }
 					}
 				})
 			});
-	
+			//“新增”按钮点击后出现模态框
+			$("#user_add_btn").click(function() {
+				//清除表单数据（表单重置）
+				$("#userAddModal form")[0].reset();
+				$("#userAddModal").modal({
+					backdrop : "static"
+				});
+			});
+			//保存按钮点击事件,添加用户信息
+			$("#user_save_btn2").click(function(){						
+				//模态框中填写的表单数据提交给服务器进行保存
+				$.ajax({
+						  url:"addHouseholder",
+						  type:"POST",
+						  data:$("#userAddModal form").serialize(),
+						  success:function(result){
+							  if(result.code==300){
+								  alert(result.msg);
+								  $("#userAddModal").modal("hide");
+								  return;
+							  }
+							  if(result.code==100){
+								  alert(result.msg);
+								  $("#userAddModal").modal("hide");
+								  to_page(currentPage);
+								  return;
+							  }
+							  if(result.extend.user_idnumber != undefined){
+								   alert(result.extend.user_idnumber);
+								  }
+							  if(result.extend.idnumber_exist != undefined){
+								   alert(result.extend.idnumber_exist);				
+								   return;
+								  }
+						  }
+					  });
+				
+			});
+			//单击全选框，完成全选
+			$("#check_all").click(function(){
+				$(".check_item").prop("checked",$(this).prop("checked"));						
+			});
+			//全选框下的框都选中后也自动勾上
+			$(document).on("click",".check_item",function(){
+				//判断当前选中的元素是否为5个,:check作用：匹配所有选中的被选中元素，复选框，单选框等，不包括select中的option
+				var flag=$(".check_item:checked").length==$(".check_item").length;
+				$("#check_all").prop("checked",flag);
+			})
+			//点击删除，删除勾选的快递
+			$("#householder_del").click(function(){
+				var nums="";
+				$.each($(".check_item:checked"),function(){
+					nums+=$(this).parents("tr").find("td:eq(3)").text()+",";
+				})
+				//去除多余的","
+				nums=nums.substring(0,nums.length-1);//截取字符串
+				if($(".check_item:checked").length<1)
+					confirm("未选中任何记录!");
+				else{
+					if(confirm("确认删除身份证号为【"+nums+"】的用户吗？")){
+					//发送ajax删除多个用户
+					$.ajax({
+						url:"householderDel/"+nums,
+						type:"DELETE",
+						success:function(result){
+							if(result.code==300){
+								alert(result.msg);
+								  return;
+							}						
+							alert(result.msg);
+							to_page(currentPage);
+						}
+					});
+					}
+				}
+			});
+			
+			
 			//选择时间
 			 !function(){
 			        laydate({elem: '#live_date'});
+			        laydate({elem: '#live_date_add'});
 			    }();
 	
 </script>

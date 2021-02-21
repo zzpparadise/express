@@ -27,5 +27,20 @@ public class ManageHouseholdersImpl implements ManageHouseholders{
         
         md.updateHolder(user);
     }
+    @Override
+    public void addHouseholder(User householder) {
+        md.addHouseholder(householder);
+        
+    }
+    @Override
+    public boolean chechIdNumber(String user_idnumber) {
+        User user = md.selectByIdNumber(user_idnumber);
+        return user==null?true:false;
+    }
+    @Override
+    public void delhouseholders(String[] delNums) {
+        md.delhouseholders(delNums);
+        
+    }
     
 }

@@ -12,6 +12,12 @@ public interface ManageHouseholders {
 
     public void updateHolder(User user);//修改户主信息
 
+    public void addHouseholder(User householder);//添加户主
+
+    public boolean chechIdNumber(String user_idnumber);//查询身份证号查询用户是否存在
+
+    public void delhouseholders(String[] str_userNames);//删除勾选的用户
+
     
 
 

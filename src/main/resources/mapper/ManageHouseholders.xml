@@ -9,10 +9,25 @@
 		house_type,area,loupaihao,user_tel from users where user_id = #{user_id} 
 	</select>
 	<update id="updateHolder" parameterType="User">
-		update users set user_name=#{user_name},user_tel=#{user_tel},
-		user_sex=#{user_sex},householder_name=#{householder_name},user_idnumber=#{user_idnumber},
+		update users set user_tel=#{user_tel},user_sex=#{user_sex},
+		householder_name=#{householder_name},user_idnumber=#{user_idnumber},
 		hokou_address=#{hokou_address},live_date=#{live_date},house_type=#{house_type},
 		area=#{area},loupaihao=#{loupaihao}
 		where user_id=#{user_id}
 	</update>
+	<insert id="addHouseholder" parameterType="User">
+		insert into users(user_password,user_sex,user_address,user_tel,user_idnumber,hokou_address,area,house_type,live_date,is_master,loupaihao,householder_name)
+		values(#{user_password},#{user_sex},#{user_address},#{user_tel},#{user_idnumber},#{hokou_address},#{area},#{house_type},
+		#{live_date},1,#{loupaihao},#{householder_name});
+	</insert>
+		<select id="selectByIdNumber" resultType="User"
+		parameterType="String">
+		select * from users where user_idnumber=#{user_idnumber}
+	</select>
+	<delete id="delhouseholders" parameterType="String">
+    	DELETE FROM  users  where user_idnumber IN
+    	<foreach collection="array" item="user_idnumber" open="(" separator="," close=")">
+        	#{user_idnumber}
+    	</foreach>
+	</delete>
 </mapper>

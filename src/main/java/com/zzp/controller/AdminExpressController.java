@@ -87,8 +87,6 @@ public class AdminExpressController {
         for(int i=0;i<str_userNames.length;i++) {
             delNums[i]=Integer.parseInt(str_userNames[i]);
         }
-        for(int i=0;i<delNums.length;i++)
-            System.out.println(delNums[i]);
         ae.delExpress(delNums);
         
         return Msg.success();

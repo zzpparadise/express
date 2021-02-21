@@ -1,11 +1,17 @@
 package com.zzp.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.zzp.pojo.Admin;
-import com.zzp.pojo.Express;
 import com.zzp.pojo.User;
 import com.zzp.service.ManageHouseholders;
 import com.zzp.service.UserService;
@@ -31,9 +36,9 @@ public class MangehouseholdersController {
     @ResponseBody
     public Msg getHouseholdersWithJson(@RequestParam(value="pn",defaultValue="1")
     Integer pn,HttpSession session) {
-//        Admin admin = (Admin) session.getAttribute("admin");
-//        if(admin==null)
-//            return Msg.invalid(); 
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid(); 
         //在查询之前调用，传入页码，以及每页的大小
         PageHelper.startPage(pn,10);//分页查询
         List<User> users=householders.getHouseholders();
@@ -52,8 +57,50 @@ public class MangehouseholdersController {
     @RequestMapping(value="/updateHolder",method=RequestMethod.PUT)
     @ResponseBody
     public Msg updateHolder(User user,HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid();
         householders.updateHolder(user);
         return Msg.success();
     }
-    
+    //添加户主
+    @RequestMapping(value="/addHouseholder",method=RequestMethod.POST)
+    @ResponseBody
+    public Msg addHouseholder(User user,HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid();       
+        String pattern = "^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$";
+        // 创建 Pattern 对象
+        Pattern r = Pattern.compile(pattern); 
+        // 现在创建 matcher 对象
+        boolean m = r.matcher(user.getUser_idnumber()).matches();
+        if(!m) {
+            return Msg.fail().add("user_idnumber", "身份证格式错误");
+        }
+        
+        User householder = user;
+        boolean chechIdNumber = householders.chechIdNumber(householder.getUser_idnumber());
+        if(!chechIdNumber) {
+            return Msg.fail().add("idnumber_exist", "该身份证已存在");
+        }
+        
+        householders.addHouseholder(householder);
+        return Msg.success();
+    }
+  //删除勾选的快递
+    @ResponseBody
+    @RequestMapping(value="/householderDel/{nums}",method=RequestMethod.DELETE)
+    public Msg deleteUsers(@PathVariable("nums")String nums,HttpSession session) {//从路径中取出account，转化成用户account
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid();
+        String[]str_userNames=nums.split(",");
+
+
+        householders.delhouseholders(str_userNames);
+        
+        return Msg.success();
+    }
+
 }
