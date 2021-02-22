@@ -16,9 +16,9 @@
 		where user_id=#{user_id}
 	</update>
 	<insert id="addHouseholder" parameterType="User">
-		insert into users(user_password,user_sex,user_address,user_tel,user_idnumber,hokou_address,area,house_type,live_date,is_master,loupaihao,householder_name)
+		insert into users(user_password,user_sex,user_address,user_tel,user_idnumber,hokou_address,area,house_type,live_date,is_master,loupaihao,householder_name,user_name)
 		values(#{user_password},#{user_sex},#{user_address},#{user_tel},#{user_idnumber},#{hokou_address},#{area},#{house_type},
-		#{live_date},1,#{loupaihao},#{householder_name});
+		#{live_date},1,#{loupaihao},#{householder_name},#{user_name});
 	</insert>
 		<select id="selectByIdNumber" resultType="User"
 		parameterType="String">

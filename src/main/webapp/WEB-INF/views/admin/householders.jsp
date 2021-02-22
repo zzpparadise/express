@@ -428,7 +428,7 @@ var pages;//总页数
 							  if(result.code==100){
 								  alert(result.msg);
 								  $("#userAddModal").modal("hide");
-								  to_page(currentPage);
+								  to_page(pages);
 								  return;
 							  }
 							  if(result.extend.user_idnumber != undefined){

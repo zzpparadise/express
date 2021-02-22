@@ -165,7 +165,7 @@
 						<thead>
 							<tr><th ><input type="checkbox" id="check_all"/></th>
 								<th>编号</th>
-								<th>用户名</th>
+								<th>用户账号</th>
 								<th>手机号</th>
 								<th>快递柜</th>
 								<th>到达日期</th>
@@ -190,6 +190,7 @@
 //页面加载完成以后，直接去发送一个ajax请求，要到分页数据
 	var currentPage;//当前页
 	var pages;//总页数
+	var lastPage;//最后一页
 		$(function() {
 		//去首页
 		to_page(1);

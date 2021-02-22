@@ -13,17 +13,17 @@
 
 </head>
 <body>
-	<div class="container">
+<!-- 	<div class="container"> -->
 		<div class="row">
-			<div class="bg-success" style="height:100px;">
+			<div class="bg-info" style="height:70px;">
 				<br/>
-				<p style="font-size:30px">小区物业及快递服务系统-用户注册</p>
+				<p style="font-size:30px; font-family:华文行楷">&nbsp;&nbsp;小区物业及快递服务系统-用户注册</p>
 			</div>
 		</div>
-		<div class="row" style="background-image:url(${pageContext.request.contextPath }/img/background.jpg);
+		<div class="row" style="background-image:url(${pageContext.request.contextPath }/img/building2.jpg);
 		background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">
-			<div style="height:100px"></div>
-			<div class="col-md-4 col-md-offset-4" >
+			<div style="height:50px"></div>
+			<div class="col-md-4 col-md-offset-7" style="background-image:url(${pageContext.request.contextPath }/img/touming1.png)">
 				<div style="height:50px"></div>
 				<form id="form" action="doRegister" method="post" class="form-horizontal">
 					<div class="form-group">
@@ -62,22 +62,22 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-md-2 col-md-offset-3">
+						<div class="col-md-2 col-md-offset-4">
 								<input type="button" value="注册" class="btn btn-primary" id="registerBtn"/>
 							
 						</div>
-						<div class="col-md-2 col-md-offset-3">
-						<input type="reset" value="重置" class="btn btn-info"/>
+						<div class="col-md-2 col-md-offset-1">
+						<input type="reset" value="重置" class="btn btn-primary"/>
 							
 						</div>
 						
 					</div>
 				</form>
 			</div>
-			<div style="height:500px"></div>
+			<div style="height:480px"></div>
 		</div>
 		<div class="row">
-			<div class="bg-success container " style="height:100px">
+			<div class="bg-info" style="height:50px">
 				<br/>
 				<div class="col-md-1 col-md-offset-3"><a href="#" style="color:black">关于我们</a></div>
 				<div class="col-md-1"><a href="#" style="color:black">联系我们</a></div>
@@ -87,7 +87,7 @@
 				<div class="col-md-1"><a href="#" style="color:black">加入我们</a></div>
 			</div>
 		</div>
-	</div>
+	<!-- </div> -->
 
 <script type="text/javascript">
 	$("#registerBtn").click(function(){

@@ -1,17 +1,13 @@
 package com.zzp.controller;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,8 +19,8 @@ import com.github.pagehelper.PageInfo;
 import com.zzp.pojo.Admin;
 import com.zzp.pojo.User;
 import com.zzp.service.ManageHouseholders;
-import com.zzp.service.UserService;
 import com.zzp.util.Msg;
+import com.zzp.util.RandomCode;
 
 @Controller
 @RequestMapping(value="/admin")
@@ -84,7 +80,11 @@ public class MangehouseholdersController {
         if(!chechIdNumber) {
             return Msg.fail().add("idnumber_exist", "该身份证已存在");
         }
-        
+        //生成账号和密码
+        String user_name = new RandomCode().newAccount();
+        String user_password = user.getUser_idnumber().substring(12,18);
+        householder.setUser_name(user_name);
+        householder.setUser_password(user_password);
         householders.addHouseholder(householder);
         return Msg.success();
     }

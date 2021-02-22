@@ -52,24 +52,25 @@
 </head>
 
 <body onkeydown="keyLogin();">
-	<div class="container">
+
+<!-- 	<div class="container"> -->
 		<div class="row">
-			<div class="bg-success" style="height:100px;">
+			<div class="bg-info" style="height:70px;">
 				<br/>
-				<p style="font-size:30px; font-family:华文行楷" >小区物业及快递服务系统-用户登录</p>
+				<p style="font-size:30px; font-family:华文行楷" >&nbsp;&nbsp;小区物业及快递服务系统-用户登录</p>
 			</div>
 		</div>
-		<div class="row" style="background-image:url(${pageContext.request.contextPath }/img/background.jpg);
+		<div class="row" style="background-image:url(${pageContext.request.contextPath }/img/building4.jpg);
 		background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">
-			<div style="height:100px"></div>
-			<div class="col-md-4 col-md-offset-4">
+			<div style="height:50px"></div>
+			<div class="col-md-4 col-md-offset-6" style="background-image:url(${pageContext.request.contextPath }/img/touming1.png)">
 				<div style="height:50px"></div>
-				<form action="login" method="post" id="form" class="form-horizontal">
-					<div class="form-group">
+				<form action="login" method="post" id="form" class="form-horizontal ">
+					<div class="form-group" >
 						<div class="col-md-1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div>				
 						<label class="col-md-3" for="account">账&nbsp;&nbsp;&nbsp;&nbsp;号</label>
 						<div class="col-md-8">
-							<input type="text" name="username" class="form-control" placeholder="输入用户名">
+							<input type="text" name="username" class="form-control" placeholder="输入账号">
 						</div>
 					</div>
 
@@ -91,7 +92,7 @@
 					</div>
 					
 					<div class="form-group">
-						<div class="col-md-2 col-md-offset-2">
+						<div class="col-md-1 col-md-offset-4">
 							<input type="button" id="submitBtn" value="登录" class="btn btn-primary">
 						</div>
 						<div class="col-md-2 col-md-offset-1">
@@ -99,16 +100,16 @@
 						</div>						
 										
 					</div>
-					<div class="col-md-6 col-md-offset-2">
-					<a href="register" >还没账号？去注册</a>
+					<div class="col-md-4 col-md-offset-8">
+					<a href="register" style="color:white">还没账号？去注册</a>
 					</div>
 
 				</form>
 			</div>
-			<div class="col-md-4 col-md-offset-4" style="height:100px"></div>
+			<div class="col-md-4 col-md-offset-4" style="height:200px"></div>
 		</div>
 		<div class="row">
-			<div class="bg-success container " style="height:100px">
+			<div class="bg-info" style="height:50px">
 				<br/>
 				<div class="col-md-1 col-md-offset-3"><a href="#" style="color:black">关于我们</a></div>
 				<div class="col-md-1"><a href="#" style="color:black">联系我们</a></div>
@@ -118,6 +119,6 @@
 				<div class="col-md-1"><a href="#" style="color:black">加入我们</a></div>
 			</div>
 		</div>
-		</div>
+<!-- 		</div> -->
 </body>
 </html>
