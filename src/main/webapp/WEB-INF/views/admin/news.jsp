@@ -75,10 +75,10 @@
 							<select name="case_name" class="btn btn-default " id="case_name_add">
 								<option value="a">A</option>
 								<option value="b">B</option>
-								<option value="a">C</option>
-								<option value="b">D</option>
-								<option value="a">E</option>
-								<option value="b">F</option>
+								<option value="c">C</option>
+								<option value="d">D</option>
+								<option value="e">E</option>
+								<option value="f">F</option>
 							</select>
 							<select name="case_num" class="btn btn-default " id="case_num_add">
 								<option value="1">1</option>
@@ -91,26 +91,26 @@
 								<option value="8">8</option>
 								<option value="9">9</option>
 								<option value="10">10</option>
-								<option value="1">11</option>
-								<option value="2">12</option>
-								<option value="3">13</option>
-								<option value="4">14</option>
-								<option value="5">15</option>
-								<option value="6">16</option>
-								<option value="7">17</option>
-								<option value="8">18</option>
-								<option value="9">19</option>
-								<option value="10">20</option>
-								<option value="1">21</option>
-								<option value="2">22</option>
-								<option value="3">23</option>
-								<option value="4">24</option>
-								<option value="5">25</option>
-								<option value="6">26</option>
-								<option value="7">27</option>
-								<option value="8">28</option>
-								<option value="9">29</option>
-								<option value="10">30</option>
+								<option value="11">11</option>
+								<option value="12">12</option>
+								<option value="13">13</option>
+								<option value="14">14</option>
+								<option value="15">15</option>
+								<option value="16">16</option>
+								<option value="17">17</option>
+								<option value="18">18</option>
+								<option value="19">19</option>
+								<option value="20">20</option>
+								<option value="21">21</option>
+								<option value="22">22</option>
+								<option value="23">23</option>
+								<option value="24">24</option>
+								<option value="25">25</option>
+								<option value="26">26</option>
+								<option value="27">27</option>
+								<option value="28">28</option>
+								<option value="29">29</option>
+								<option value="30">30</option>
 							</select>						
 							</div>					
 						</div>
@@ -144,10 +144,10 @@
     <div class="notice_check">
     
         <div class="l_left">
-            <input type="text" class="find_input">
+            <input type="text" class="find_input" id="find_input">
 
         </div>
-        <button class="check_btn">查询</button>
+        <button class="check_btn" id="select">查询</button>
 
 
         <div class="notice_nav r_right">
@@ -191,12 +191,14 @@
 	var currentPage;//当前页
 	var pages;//总页数
 	var lastPage;//最后一页
+	var flag;//条件查询或全部查询标志
 		$(function() {
+			flag=1;
 		//去首页
-		to_page(1);
+			to_page(1,1);
 		})
 		//跳转到指定的页码号
-		function to_page(pn) {
+		function to_page(pn,flag) {
 			$.ajax({
 				url : "allUser",
 				data : "pn=" + pn,
@@ -208,7 +210,7 @@
 					//解析显示分页信息
 					build_page_info(result);
 					//解析显示分页条
-					build_page_nav(result);
+					build_page_nav(result,flag);
 					currentPage=result.extend.pageInfo.pageNum;
 					pages=result.extend.pageInfo.pages;
 					}
@@ -267,11 +269,11 @@
 				firstPageLi.addClass("disabled");
 				prePageLi.addClass("disabled");
 			} else {
-				firstPageLi.click(function() {
-					to_page(1);
+				firstPageLi.click(function() {					
+					switch_select(1,flag);
 				});
 				prePageLi.click(function() {
-					to_page(result.extend.pageInfo.pageNum - 1);
+					switch_select(result.extend.pageInfo.pageNum - 1,flag);
 				});
 			}
 			//为元素添加翻页事件
@@ -284,10 +286,10 @@
 				lastPageLi.addClass("disabled");
 			} else {
 				nextLi.click(function() {
-					to_page(result.extend.pageInfo.pageNum + 1);
+					switch_select(result.extend.pageInfo.pageNum + 1,flag);
 				});
 				lastPageLi.click(function() {
-					to_page(result.extend.pageInfo.pages);
+					switch_select(result.extend.pageInfo.pages,flag);
 				});
 			}
 
@@ -302,7 +304,7 @@
 					numLi.addClass("active");
 				}
 				numLi.click(function() {
-					to_page(item);
+					switch_select(item,flag);
 				});
 				ul.append(numLi);
 			});
@@ -336,12 +338,10 @@
 						  alert(result.msg);
 						  if(result.code == 100){
 							  $("#userAddModal").modal("hide");
-							  to_page(pages);
+							  switch_select(pages,flag);
 						  }
 						  else{
 							  alert(result.extend.user_null);
-							  $("#userAddModal").modal("hide");
-							  to_page(currentPage);
 						  }
 												  						  						  
 					  }
@@ -361,8 +361,7 @@
 							alert(result.msg);
 							  return;
 						}
-						
-						to_page(currentPage);
+						switch_select(currentPage,flag);
 					}
 				});
 			}
@@ -376,8 +375,8 @@
 		//全选框下的框都选中后也自动勾上
 		$(document).on("click",".check_item",function(){
 			//判断当前选中的元素是否为5个,:check作用：匹配所有选中的被选中元素，复选框，单选框等，不包括select中的option
-			var flag=$(".check_item:checked").length==$(".check_item").length;
-			$("#check_all").prop("checked",flag);
+			var flaggg=$(".check_item:checked").length==$(".check_item").length;
+			$("#check_all").prop("checked",flaggg);
 		})
 		//点击删除，删除勾选的快递
 		$("#express_del").click(function(){
@@ -401,15 +400,54 @@
 							  return;
 						}						
 						alert(result.msg);
-						to_page(currentPage);
+						  switch_select(currentPage,flag);
 					}
 				});
 				}
 			}
 		});
-		
+		//按条件查询
+		$("#select").click(function(){
+			flag=2;
+			to_page_select(1,2);
+		});
+								
+		//查询函数
+		function to_page_select(pn,flag) {
+			flag=2;
+			var find_input = $("#find_input").val();
+			$.ajax({
+				url : "select_express",
+				data : {'content':find_input,'pn':pn},
+				type : "GET",
+				success : function(result) {
+					if(result.code==100){
+					//解析并显示用户数据
+					build_user_table(result);
+					//解析显示分页信息
+					build_page_info(result);
+					//解析显示分页条
+					build_page_nav(result,flag);
+					currentPage=result.extend.pageInfo.pageNum;//保存当前页码
+					pages=result.extend.pageInfo.pages;
+					}
+					else{
+						alert(result.msg);
+					}
+				}
+			});
+		}
+		//条件查询或全部查询对应函数
+		function switch_select(data,flag){
+			if(flag==1){
+			  	to_page(data,1);
+			  }
+			  if(flag==2){
+				  to_page_select(data,2);
+			  }
+		}
 	
-		//选择时间
+		//添加选择时间的组件
 		 !function(){
 		        laydate.skin('danlan');
 		        laydate({elem: '#arrive_add'});

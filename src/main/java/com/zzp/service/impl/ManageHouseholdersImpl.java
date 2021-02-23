@@ -42,5 +42,9 @@ public class ManageHouseholdersImpl implements ManageHouseholders{
         md.delhouseholders(delNums);
         
     }
+    @Override
+    public List<User> input_select(String content) {
+        return md.input_select(content);
+    }
     
 }

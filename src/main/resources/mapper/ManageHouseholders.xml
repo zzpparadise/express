@@ -30,4 +30,15 @@
         	#{user_idnumber}
     	</foreach>
 	</delete>
+	<select id="input_select" resultType="User" parameterType="String">
+		select * from users where  is_master=1 and (user_sex = #{content} 
+		or householder_name like concat('%',#{content},'%')
+		or user_idnumber like concat('%',#{content})
+		or hokou_address like concat('%',#{content},'%')
+		or live_date = #{content} 
+		or house_type like concat(#{content},'%')
+		or area = #{content}
+		or loupaihao like concat(#{content},'%')
+		or user_tel like concat('%',#{content}))
+	</select>
 </mapper>

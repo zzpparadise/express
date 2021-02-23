@@ -31,10 +31,10 @@ public class AdminExpressServiceImpl implements AdminExpressService{
         ad.delExpress(delNums);
         
     }
+
     @Override
-    public List<Express> getHouseholders() {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Express> input_select(String content) {
+        return ad.input_select(content);
     }
     
 

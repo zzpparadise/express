@@ -18,6 +18,8 @@ public interface ManageHouseholders {
 
     public void delhouseholders(String[] str_userNames);//删除勾选的用户
 
+    public List<User> input_select(String content);//根据输入框内容查询
+
     
 
 

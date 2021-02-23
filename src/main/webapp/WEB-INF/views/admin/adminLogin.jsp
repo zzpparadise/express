@@ -89,10 +89,10 @@
 					</div>
 					
 					<div class="form-group">
-						<div class="col-md-2 col-md-offset-2">
+						<div class="col-md-2 col-md-offset-4">
 							<input type="button" id="submitBtn" value="登录" class="btn btn-primary">
 						</div>
-						<div class="col-md-2 col-md-offset-1">
+						<div class="col-md-2 ">
 							<input type="reset" value="重置" class="btn btn-primary">
 						</div>						
 										

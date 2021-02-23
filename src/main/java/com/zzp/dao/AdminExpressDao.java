@@ -16,5 +16,7 @@ public interface AdminExpressDao {
     public void setFlag(int num);//确认收货
 
     public void delExpress(int[] delNums);//删除快递
+
+    public List<Express> input_select(String content);//根据条件查询快递
     
 }

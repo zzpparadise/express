@@ -3,15 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
     <title></title>
     <link href="${pageContext.request.contextPath }/js/bstable/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath }/js/bstable/css/bootstrap-table.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath }/css/table.css" rel="stylesheet" type="text/css" />
     <link href="${pageContext.request.contextPath }/css/news.css" rel="stylesheet" type="text/css" />
-
-
-
 </head>
 <body style="background-color: #ecf0f5;font-family: 微软雅黑;color: #475059;min-width: 1000px;overflow: auto">
 <div class="news_main">
@@ -34,7 +31,7 @@
             </ul>
         </div>
         <div class="l_left">
-            <input type="text" class="find_input">
+            <input type="text" class="find_input" id="find_input">
 
         </div>
         <button class="check_btn">查询</button>
