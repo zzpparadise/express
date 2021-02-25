@@ -91,5 +91,10 @@ public class AdminController {
         model.setViewName("admin/householders");
         return model;
     }
-    
+    //水电收费
+    @RequestMapping("/charge")
+    public ModelAndView charge(ModelAndView model,HttpSession session) {
+        model.setViewName("admin/charge");
+        return model;
+    }
 }
