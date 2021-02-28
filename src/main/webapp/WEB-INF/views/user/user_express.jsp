@@ -12,7 +12,8 @@
 <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
 
 </head>
-<body>
+<body style="background-image:url(${pageContext.request.contextPath }/img/background.jpg);
+		background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">
 	<!-- 导航条 -->
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
@@ -25,7 +26,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#" style="color: green;margin-top:10px">小区快递系统</a>
+				<a class="navbar-brand" href="#" style="color: green;margin-top:10px">小区物业及快递系统</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -42,6 +43,7 @@
 							<option value="2019">2019年</option>
 							<option value="2020">2020年</option>
 							<option value="2021">2021年</option>
+							<option value="2022">2022年</option>
 
 					</select></li>
 					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
@@ -100,24 +102,12 @@
 			</div>
 		</div>
 	</nav>
-	<p class="bg-info">欢迎来到小区快递管理系统，目前该系统仅供XX小区用户使用!</p>
 	<!-- 用户快递信息 -->
-	<div class="container">
+	<div class="container" >	
 	<div class="row">
 		<div class="col-md-12">
 			<table class="table table-hover" id="user_Express">
 				<thead>
-					<tr id="tr_1">
-						<th>快递编号</th>
-						<th>收货人</th>
-						<th>电话</th>
-						<th>快递公司</th>
-						<th>快递柜</th>
-						<th>编号</th>
-						<th>到达日期</th>
-						<th>取货码</th>
-						<th>取货状态</th>
-					</tr>
 				</thead>
 				<tbody>
 				</tbody>
@@ -200,6 +190,10 @@
 		//构建快递列表
 		function build_user_table(result){
 			$("#user_Express tbody").empty();
+			$("#user_Express thead").empty();
+			$("<tr></tr>").append("<th>快递编号</th>").append("<th>收货人</th>").append("<th>电话</th>")
+			.append("<th>快递公司</th>").append("<th>快递柜</th>").append("<th>编号</th>")
+			.append("<th>到达日期</th>").append("<th>取货码</th>").append("<th>取货状态</th>").appendTo("#user_Express thead");	
 			var express = result.extend.pageInfo.list;
 			$.each(express, function(index, item) {				
 				var expressId = $("<td></td>").append(item.id);

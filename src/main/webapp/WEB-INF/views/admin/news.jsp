@@ -149,7 +149,6 @@
         </div>
         <button class="check_btn" id="select">查询</button>
 
-
         <div class="notice_nav r_right">
             <a class="btn btn-default" id="user_add_modal_btn"><span class="glyphicon glyphicon-plus"></span>新增</a>
             <a class="btn btn-default" id="express_del"><span class="glyphicon glyphicon-remove"></span>删除</a>
@@ -167,7 +166,7 @@
 								<th>编号</th>
 								<th>用户账号</th>
 								<th>手机号</th>
-								<th>快递柜</th>
+								<th>快递位置</th>
 								<th>到达日期</th>
 								<th>快递公司</th>
 								<th>取货码</th>
@@ -239,7 +238,7 @@
 				//为编辑按钮添加一个自定义的属性，来表示当前用户的account
 				//editBtn.attr("edit-account",item.account);
 				var delBtn = $("<button></button>").addClass(
-						"btn btn-success btn-sm del_btn").append("确认收货");
+						"btn btn-primary btn-sm del_btn").append("确认收货");
 				var btnTd = $("<td></td>").append(delBtn);
 
 				$("<tr></tr>").append(checkBoxTd).append(expressId)

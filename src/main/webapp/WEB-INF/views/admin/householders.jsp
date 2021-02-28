@@ -261,7 +261,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<table class="table table-hover" id="user_table">
+				<table class="table table-hover table-striped" id="user_table">
 					<thead>
 						<tr>
 							<th><input type="checkbox" id="check_all" /></th>
@@ -343,9 +343,13 @@
 				var user_tel = $("<td></td>").append(item.user_tel);
 				var editBtn = $("<button></button>").addClass(
 						"btn btn-primary btn-sm edit_btn").append("编辑");
-				//为编辑按钮添加一个自定义的属性，来表示当前用户的身份证号
+				var water_check = $("<button></button>").addClass(
+				"btn btn-info btn-sm water_check").append("查看");
+				//为编辑按钮和录入按钮添加一个自定义的属性，来表示当前用户的id
 				editBtn.attr("user-id", item.user_id);
-				var btnTd = $("<td></td>").append(editBtn);
+				water_check.attr("user-id", item.user_id);
+				
+				var btnTd = $("<td></td>").append(editBtn).append("  ").append(water_check);
 
 				$("<tr></tr>").append(checkBoxTd).append(householder_name)
 						.append(user_sex).append(user_idnumber).append(
@@ -595,6 +599,25 @@
 			}
 		}
 
+		//“录入”按钮点击后跳转到用户水电收费界面
+		$(document).on("click", ".water_check", function() {
+			var user_id = $(this).attr("user-id")
+			$.ajax({
+				url:"return_charge",
+				data:{
+					'user_id' : user_id,
+				},
+				type:"POST",
+				success:function(result) {
+					window.location.href="../admin/charge";
+				}
+
+			});
+		});
+		
+		
+		
+		
 		//选择时间
 		!function() {
 			laydate({

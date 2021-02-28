@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -32,9 +33,9 @@ public class MangehouseholdersController {
     @ResponseBody
     public Msg getHouseholdersWithJson(@RequestParam(value="pn",defaultValue="1")
     Integer pn,HttpSession session) {
-        Admin admin = (Admin) session.getAttribute("admin");
-        if(admin==null)
-            return Msg.invalid(); 
+//        Admin admin = (Admin) session.getAttribute("admin");
+//        if(admin==null)
+//            return Msg.invalid(); 
         //在查询之前调用，传入页码，以及每页的大小
         PageHelper.startPage(pn,10);//分页查询
         List<User> users=householders.getHouseholders();
@@ -117,5 +118,12 @@ public class MangehouseholdersController {
         //使用pageinfo包装查询结果,封装了详细的分页信息，传入连续显示的页数
         PageInfo page = new PageInfo(users,5);
         return Msg.success().add("pageInfo",page);
+    }
+    //跳转到水电收费页面
+    @RequestMapping("/return_charge")
+    public ModelAndView charge(ModelAndView model,@RequestParam(value="user_id",required=false) String user_id,HttpSession session) {
+        session.setAttribute("user_id",user_id);
+        model.setViewName("admin/charge");
+        return model;
     }
 }

@@ -57,7 +57,7 @@
 				<p style="font-size:30px;font-family:华文行楷 ">&nbsp;&nbsp;小区物业及快递服务系统-管理员登录</p>
 			</div>
 		</div>		
-		<div class="row"style="background-image:url(${pageContext.request.contextPath }/img/building1.jpg);
+		<div class="row" style="background-image:url(${pageContext.request.contextPath }/img/building1.jpg);
 		background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">		
 			<div style="height:100px"></div>
 			<div class="col-md-4 col-md-offset-6" style="background-image:url(${pageContext.request.contextPath }/img/touming1.png)">
