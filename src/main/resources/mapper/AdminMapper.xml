@@ -4,6 +4,14 @@
 	<select id="findAdminByName" resultType="Admin" parameterType="String">
 		select * from admin where account=#{username}
 	</select>
-
-
+	
+	<select id="getPrice" resultType="Unit_Price">
+		select water_price,electricity_price from water_elec_price where id=1
+	</select>
+	
+	<update id="updatePrice" parameterType="Unit_Price">
+		update water_elec_price set water_price = #{water_price},
+		electricity_price = #{electricity_price} 
+		where id=1
+	</update>
 </mapper>

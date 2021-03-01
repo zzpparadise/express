@@ -89,7 +89,7 @@ public class MangehouseholdersController {
         householders.addHouseholder(householder);
         return Msg.success();
     }
-  //删除勾选的快递
+  //删除勾选的用户
     @ResponseBody
     @RequestMapping(value="/householderDel/{nums}",method=RequestMethod.DELETE)
     public Msg deleteUsers(@PathVariable("nums")String nums,HttpSession session) {//从路径中取出account，转化成用户account

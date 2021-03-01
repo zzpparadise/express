@@ -12,6 +12,50 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/css/skins/_all-skins.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini" style="overflow:hidden;">
+	<!-- 修改水电单价的模态款 -->
+	<div class="modal fade bs-example-modal-sm" id="priceUpdateModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" >修改水电单价</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal">
+					
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-3 control-label">水单价</label>
+							<div class="col-sm-4">
+								<input type="email" class="form-control" name="water_price" id="water_price">
+								<span class="help-block"></span>
+							</div>
+							<label for="inputEmail3" class="col-sm-3 control-label">元 / 吨</label>
+						</div>
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-3 control-label">电单价</label>
+							<div class="col-sm-4">
+								<input type="email" class="form-control" name="electricity_price" id="electricity_price">
+									<span class="help-block"></span>
+							</div>
+							<label for="inputEmail3" class="col-sm-3 control-label">元 / 度</label>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="price_update_btn">修改</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
     <div id="ajax-loader" style="cursor: progress; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: #fff; z-index: 10000; overflow: hidden;">
         <img src="${pageContext.request.contextPath }/img/ajax-loader.gif" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto;" />
     </div>
@@ -55,20 +99,20 @@
                             	<a href="login">请登录</a>
                             </c:if>
                             <ul class="dropdown-menu pull-right">
-                                <li><a class="menuItem" data-id="userInfo" href=""><i class="fa fa-user"></i>个人信息</a></li>
+                                <li><a class="menuItem" data-id="userInfo" type = "button" id = "update_price"><i class="fa fa-user"></i>修改单价</a></li>
                                 <li><a><i class="fa fa-trash-o"></i>清空缓存</a></li>
                                 <li id="color"><a><i class="fa fa-paint-brush"></i>皮肤设置</a>
                                     <div style="position: absolute;left:-90px;top:50px;border: 1px #eee solid;box-shadow: 0 6px 12px rgba(0,0,0,.175);display: none" id="color_div">
                                      <ul class="color_ul">
                                          <li style="background-color: green;color:green"></li>
+                                         <li style="background-color: #cc0000;color: #cc0000"></li>
+                                         <li style="background-color: #330099;color: #330099"></li>
+                                         <li style="background-color: red;color:red"></li>
                                          <li style="background-color: #3c8dbc;color: #3c8dbc"></li>
-                                         <li style="background-color: red;color: red"></li>
+                                         <li style="background-color: green;color: green"></li>
                                          <li style="background-color: green;color:green"></li>
-                                         <li style="background-color: #3c8dbc;color: #3c8dbc"></li>
-                                         <li style="background-color: red;color: red"></li>
-                                         <li style="background-color: green;color:green"></li>
-                                         <li style="background-color: #3c8dbc;color: #3c8dbc"></li>
-                                         <li style="background-color: red;color: red"></li>
+                                         <li style="background-color: green;color: green"></li>
+                                         <li style="background-color: green;color: green"></li>
                                      </ul>
                                     </div>
                                 </li>
@@ -85,14 +129,6 @@
         <!--左边导航-->
         <div class="main-sidebar">
             <div class="sidebar">
-                <!--<form action="#" method="get" class="sidebar-form">-->
-                    <!--<div class="input-group">-->
-                        <!--<input type="text" name="q" class="form-control" placeholder="Search...">-->
-                        <!--<span class="input-group-btn">-->
-                            <!--<a class="btn btn-flat"><i class="fa fa-search"></i></a>-->
-                        <!--</span>-->
-                    <!--</div>-->
-                <!--</form>-->
                 <ul class="sidebar-menu" id="sidebar-menu">
                     <li class="header">导航菜单</li>
                 </ul>
@@ -136,6 +172,60 @@
     <script src="${pageContext.request.contextPath }/js/bootstrap/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath }/js/index.js"></script>
     <script>
+
+   
+		//“修改水电”按钮点击后出现模态框
+		$("#update_price").click(function(){
+			getPrice();
+			$("#priceUpdateModal").modal({
+				backdrop : "static"
+			});
+		});
+		
+		//获取水电单价信息
+		function getPrice() {
+			$.ajax({
+				url : "getPrice",
+				type : "GET",
+				success : function(result) {
+					var price = result.extend.price;
+					$("#water_price").val(price.water_price);
+					$("#electricity_price").val(price.electricity_price);
+				}
+			});
+		}
+		
+		//更新水电单价
+		$("#price_update_btn").click(function() {
+			$.ajax({
+				url : "updatePrice",
+				type : "PUT",
+				data : $("#priceUpdateModal form").serialize(),
+				success : function(result) {
+					if (result.code == 100) {
+						alert("修改成功");
+						$("#priceUpdateModal").modal("hide");
+					}
+					if (result.code == 300) {
+						alert(result.msg);
+						return;
+					}
+				}
+			})
+		});
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
         var colorIndex = 0;
         $(function(){
             changeColor(colorIndex);

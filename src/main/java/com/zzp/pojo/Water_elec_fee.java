@@ -92,6 +92,4 @@ public class Water_elec_fee {
     public void setIs_pay(int is_pay) {
         this.is_pay = is_pay;
     }
-    
-    
 }

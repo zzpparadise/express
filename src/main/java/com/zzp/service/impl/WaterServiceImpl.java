@@ -17,5 +17,10 @@ public class WaterServiceImpl implements WaterService {
     public List<Water_elec_fee> getWater(String string) {
         return wd.getWater(string);
     }
+    @Override
+    public void addWater(Water_elec_fee water_elec_fee) {
+        wd.addWater(water_elec_fee);
+        
+    }
 
 }

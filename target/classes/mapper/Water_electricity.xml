@@ -5,5 +5,9 @@
 		parameterType="String">
 		select * from water_electricity where user_id=#{user_id}
 	</select>
-
+	<insert id="addWater" parameterType="Water_elec_fee">
+		insert into water_electricity(householder_name,water,water_cost,electricity,electricity_cost,total_fee,star_date,end_date,user_id,property_fee,loupaihao,is_pay)
+		values(#{householder_name},#{water},#{water_cost},#{electricity},#{electricity_cost},#{total_fee},#{star_date},#{end_date},
+		#{user_id},#{property_fee},#{loupaihao},0);
+	</insert>
 </mapper>
