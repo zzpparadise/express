@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-<title></title>
+<title>单个用户水电查询</title>
 <link
 	href="${pageContext.request.contextPath }/js/bstable/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css">
@@ -74,16 +74,16 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" id="price_update_btn">修改</button>
+					<button type="button" class="btn btn-primary" id="price_add_btn">保存</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="notice_check">
-
+		<h4>水电收费管理</h4>
 		<div class="l_left">
-			<input type="text" class="find_input" id="find_input">
+			<input type="text" class="find_input" id="find_input" placeholder="根据结算日期查找">
 
 		</div>
 		<button class="check_btn" id="select">查询</button>
@@ -132,11 +132,13 @@
 	})
 	//跳转到指定的页码号
 	function to_page(url, pn) {
+		var find_input = $("#find_input").val();
 		$.ajax({
 			url : url,
 			data : {
 				'user_id' : user_id,
-				'pn' : pn
+				'pn' : pn,
+				'content' : find_input
 			},
 			type : "GET",
 			success : function(result) {
@@ -157,26 +159,26 @@
 	}
 
 	function build_user_table(result) {
-		if (result.extend.pageInfo.total == 0) {
-			$("<tr></tr>").append("<th>该用户暂无水电收费记录！</th>").appendTo(
-					"#water_elec thead");
-			return;
-		}
 		//清空table表格
 		$("#water_elec tbody").empty();
 		$("#water_elec thead").empty();
+		if (result.extend.pageInfo.total == 0) {
+			$("<tr></tr>").append("<th>暂无水电收费记录！</th>").appendTo(
+					"#water_elec thead");
+			return;
+		}
+
 		$("<tr></tr>").append("<th></th>").append("<th>编号</th>").append(
 				"<th>用户名</th>").append("<th>楼牌号</th>")
 				.append("<th>用水量(t)</th>").append("<th>水费(元)</th>").append(
 						"<th>用电量(kW·h)</th>").append("<th>电费(元)</th>").append(
 						"<th>物业费(元)</th>").append("<th>总计(元)</th>").append(
 						"<th>开始日期</th>").append("<th>结算日期</th>").append(
-						"<th>缴费情况</th>").append("<th></th>").appendTo(
+						"<th>缴费情况</th>").appendTo(
 						"#water_elec thead");
 
 		var water_elec = result.extend.pageInfo.list;
-		$
-				.each(
+		$.each(
 						water_elec,
 						function(index, item) {
 							var checkBoxTd = $("<td></td>")
@@ -219,10 +221,10 @@
 							//		"btn btn-primary btn-sm edit_btn").append("编辑");
 							//为编辑按钮添加一个自定义的属性，来表示当前用户的account
 							//editBtn.attr("edit-account",item.account);
-							var editBtn = $("<button></button>").addClass(
+							/* var editBtn = $("<button></button>").addClass(
 									"btn btn-primary btn-sm edit_btn").append(
 									"编辑");
-							var btnTd = $("<td></td>").append(editBtn);
+							var btnTd = $("<td></td>").append(editBtn); */
 
 							$("<tr></tr>").append(checkBoxTd).append(id)
 									.append(householder_name).append(loupaihao)
@@ -231,7 +233,7 @@
 											electricity_cost).append(
 											property_fee).append(total_fee)
 									.append(star_date).append(end_date).append(
-											is_pay).append(btnTd).appendTo(
+											is_pay).appendTo(
 											"#water_elec tbody");
 						});
 	}
@@ -308,7 +310,7 @@
 		});
 	});
 	//保存按钮点击事件,添加用户信息
-	$("#price_update_btn").click(function() {
+	$("#price_add_btn").click(function() {
 		//模态框中填写的表单数据提交给服务器进行保存
 		$.ajax({
 			url : "addWater_elec",
@@ -330,6 +332,42 @@
 		});
 
 	});
+	//点击删除，删除勾选的快递
+	$("#water_del").click(function() {
+		var nums = "";
+		$.each($(".check_item:checked"), function() {
+			nums += $(this).parents("tr").find("td:eq(1)").text() + ",";
+		})
+		//去除多余的","
+		nums = nums.substring(0, nums.length - 1);//截取字符串
+		if ($(".check_item:checked").length < 1)
+			confirm("未选中任何记录!");
+		else {
+			if (confirm("确认删除编号为【" + nums + "】的记录吗？")) {
+				//发送ajax删除多个用户
+				$.ajax({
+					url : "water_elecDel/" + nums,
+					type : "DELETE",
+					success : function(result) {
+						if (result.code == 300) {
+							alert(result.msg);
+							return;
+						}
+						alert(result.msg);
+						to_page(urlPath,currentPage);
+					}
+				});
+			}
+		}
+	});
+	
+	//按条件查询
+	$("#select").click(function() {
+		urlPath = "water_findInput";
+		//去首页
+		to_page(urlPath, 1);
+	});
+	
 	
 	
 	

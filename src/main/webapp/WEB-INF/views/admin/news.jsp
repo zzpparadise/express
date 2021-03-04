@@ -144,7 +144,7 @@
     <div class="notice_check">
     
         <div class="l_left">
-            <input type="text" class="find_input" id="find_input">
+            <input type="text" class="find_input" id="find_input" placeholder="输入你想查询的信息">
 
         </div>
         <button class="check_btn" id="select">查询</button>

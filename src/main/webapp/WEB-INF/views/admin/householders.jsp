@@ -242,7 +242,7 @@
 		<div class="notice_check">
 
 			<div class="l_left">
-				<input type="text" class="find_input" id="find_input">
+				<input type="text" class="find_input" id="find_input" placeholder="输入你想查询的信息">
 
 			</div>
 			<button class="check_btn" id="select">查询</button>
@@ -264,7 +264,8 @@
 				<table class="table table-hover table-striped" id="user_table">
 					<thead>
 						<tr>
-							<th><input type="checkbox" id="check_all" /></th>
+							<!-- <th><input type="checkbox" id="check_all" /></th> -->
+							<th></th>
 							<th>姓名</th>
 							<th>性别</th>
 							<th>身份证号</th>
@@ -519,7 +520,7 @@
 			$(".check_item").prop("checked", $(this).prop("checked"));
 		});
 		//全选框下的框都选中后也自动勾上
-		$(document)
+		/* $(document)
 				.on(
 						"click",
 						".check_item",
@@ -527,7 +528,7 @@
 							//判断当前选中的元素是否为5个,:check作用：匹配所有选中的被选中元素，复选框，单选框等，不包括select中的option
 							var flaggg = $(".check_item:checked").length == $(".check_item").length;
 							$("#check_all").prop("checked", flaggg);
-						})
+						}) */
 		//点击删除，删除勾选的快递
 		$("#householder_del").click(function() {
 			var nums = "";
@@ -599,7 +600,7 @@
 			}
 		}
 
-		//“录入”按钮点击后跳转到用户水电收费界面
+		//“查看”按钮点击后跳转到用户水电收费界面
 		$(document).on("click", ".water_check", function() {
 			var user_id = $(this).attr("user-id")
 			$.ajax({

@@ -10,4 +10,14 @@
 		values(#{householder_name},#{water},#{water_cost},#{electricity},#{electricity_cost},#{total_fee},#{star_date},#{end_date},
 		#{user_id},#{property_fee},#{loupaihao},0);
 	</insert>
+	<delete id="delWater" parameterType="int">
+    	DELETE FROM  water_electricity  where id IN 
+    	<foreach collection="array" item="id" open="(" separator="," close=")">
+        	#{id}
+    	</foreach>
+	</delete>
+	<select id="input_select" resultType="Water_elec_fee" parameterType="String">
+		select * from water_electricity where user_id = #{param1} 
+		and end_date like concat(#{param2},'%')
+	</select>
 </mapper>

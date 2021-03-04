@@ -102,13 +102,18 @@ public class AdminController {
         return model;
     }
 
+    // 水电收费（全部）
+    @RequestMapping("/charge_all")
+    public ModelAndView charge_all(ModelAndView model, HttpSession session) {
+        model.setViewName("admin/charge_all");
+        return model;
+    }
     // 水电收费
     @RequestMapping("/charge")
     public ModelAndView charge(ModelAndView model, HttpSession session) {
         model.setViewName("admin/charge");
         return model;
     }
-
     // 获取水电单价
     @RequestMapping(value = "/getPrice", method = RequestMethod.GET)
     @ResponseBody
