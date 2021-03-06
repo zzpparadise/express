@@ -33,11 +33,11 @@ public class MangehouseholdersController {
     @ResponseBody
     public Msg getHouseholdersWithJson(@RequestParam(value="pn",defaultValue="1")
     Integer pn,HttpSession session) {
-//        Admin admin = (Admin) session.getAttribute("admin");
-//        if(admin==null)
-//            return Msg.invalid(); 
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid(); 
         //在查询之前调用，传入页码，以及每页的大小
-        PageHelper.startPage(pn,10);//分页查询
+        PageHelper.startPage(pn,12);//分页查询
         List<User> users=householders.getHouseholders();
         //使用pageinfo包装查询结果,封装了详细的分页信息，传入连续显示的页数
         PageInfo page = new PageInfo(users,5);

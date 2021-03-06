@@ -88,10 +88,16 @@ public class AdminController {
         return model;
     }
 
-    // 快递中心
+    // 快递（未取）
     @RequestMapping("/news")
     public ModelAndView news(ModelAndView model, HttpSession session) {
         model.setViewName("admin/news");
+        return model;
+    }
+    // 快递中心（已取）
+    @RequestMapping("/olds")
+    public ModelAndView olds(ModelAndView model, HttpSession session) {
+        model.setViewName("admin/olds");
         return model;
     }
 
@@ -133,5 +139,11 @@ public class AdminController {
             return Msg.invalid();               
         as.updatePrice(unit_Price);
         return Msg.success();
+    }
+    // 水电收费查询界面
+    @RequestMapping("/select_all_waterEle")
+    public ModelAndView select_all_waterEle(ModelAndView model, HttpSession session) {
+        model.setViewName("admin/select_all_waterEle");
+        return model;
     }
 }

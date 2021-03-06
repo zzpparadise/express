@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
-<title>单个用户水电查询</title>
+<title>用户水电查询</title>
 <link
 	href="${pageContext.request.contextPath }/js/bstable/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css">
@@ -25,65 +25,11 @@
 <body
 	style="background-color: #ecf0f5; font-family: 微软雅黑; color: #475059; min-width: 1000px; overflow: auto">
 
-	<!-- 新增水电收费的模态款 -->
-	<div class="modal fade " id="priceAddModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel">
-		<div class="modal-dialog " role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title">新增收费单</h4>
-				</div>
-				<div class="modal-body">
-					<form class="form-horizontal">
-
-						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-2 control-label">开始日期</label>
-							<div class="col-sm-4">
-								<input type="email" class="form-control" name="star_date"
-									id="star_date">
-							</div>
-							<label for="inputEmail3" class="col-sm-2 control-label">结算日期</label>
-							<div class="col-sm-4">
-								<input type="email" class="form-control" name="end_date"
-									id="end_date">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-2 control-label">用水量(吨)</label>
-							<div class="col-sm-4">
-								<input type="email" class="form-control" name="water" id="water">
-							</div>
-							<label for="inputEmail3" class="col-sm-2 control-label">用电量(度)</label>
-							<div class="col-sm-4">
-								<input type="email" class="form-control" name="electricity"
-									id="electricity">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-2 control-label">物业费</label>
-							<div class="col-sm-4">
-								<input type="email" class="form-control" name="property_fee"
-									id="property_fee">
-							</div>
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" id="price_add_btn">保存</button>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<div class="notice_check">
-		<h4>水电收费管理</h4>
+		<h4>水电收费查询</h4>
 		<div class="l_left">
-			<input type="text" class="find_input" id="find_input" placeholder="根据结算日期查找">
+			<input type="text" class="find_input" id="find_input" placeholder="根据结算日期或用户名查找">
 
 		</div>
 		<button class="check_btn" id="select">查询</button>
@@ -97,15 +43,16 @@
 
 		</div>
 	</div>
-	<!-- 用户水电收费信息 -->
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<table class="table table-hover table-striped" id="water_elec">
+				<table class="table table-hover table-bordered" id="water_elec">
 					<thead>
+						
 					</thead>
 					<tbody>
 					</tbody>
+
 				</table>
 			</div>
 		</div>
@@ -121,12 +68,10 @@
 	var currentPage;//当前页
 	var pages;//总页数
 	var lastPage;//最后一页
-	var flag;//条件查询或全部查询标志
 	//定义全局路径变量
 	var urlPath = "";
-	var user_id = ${sessionScope.user_id};
 	$(function() {
-		urlPath = "select_water";
+		urlPath = "water_elec_Unpaid";
 		//去首页
 		to_page(urlPath, 1);
 	})
@@ -136,7 +81,6 @@
 		$.ajax({
 			url : url,
 			data : {
-				'user_id' : user_id,
 				'pn' : pn,
 				'content' : find_input
 			},
@@ -168,7 +112,7 @@
 			return;
 		}
 
-		$("<tr></tr>").append("<th></th>").append("<th>编号</th>").append(
+		$("<tr></tr>").append("<th>编号</th>").append(
 				"<th>用户名</th>").append("<th>楼牌号</th>")
 				.append("<th>用水量(t)</th>").append("<th>水费(元)</th>").append(
 						"<th>用电量(kW·h)</th>").append("<th>电费(元)</th>").append(
@@ -181,9 +125,9 @@
 		$.each(
 						water_elec,
 						function(index, item) {
-							var checkBoxTd = $("<td></td>")
+							/* var checkBoxTd = $("<td></td>")
 									.append(
-											"<input type='checkbox' class='check_item'/>");
+											"<input type='checkbox' class='check_item'/>"); */
 							var id = $("<td></td>").append(item.id);
 							var householder_name = $("<td></td>").append(
 									item.householder_name);
@@ -217,16 +161,7 @@
 								var is_pay = $("<td>未缴费</td>").attr("style",
 										"color:red");
 							}
-							//var editBtn = $("<button></button>").addClass(
-							//		"btn btn-primary btn-sm edit_btn").append("编辑");
-							//为编辑按钮添加一个自定义的属性，来表示当前用户的account
-							//editBtn.attr("edit-account",item.account);
-							/* var editBtn = $("<button></button>").addClass(
-									"btn btn-primary btn-sm edit_btn").append(
-									"编辑");
-							var btnTd = $("<td></td>").append(editBtn); */
-
-							$("<tr></tr>").append(checkBoxTd).append(id)
+									$("<tr></tr>").append(id)
 									.append(householder_name).append(loupaihao)
 									.append(water).append(water_cost).append(
 											electricity).append(
@@ -301,85 +236,13 @@
 		var navEle = $("<nav></nav>").append(ul);
 		navEle.appendTo("#page_nav_area");
 	}
-	//“新增”按钮点击后出现模态框
-	$("#water_add_btn").click(function() {
-		//清除表单数据（表单重置）
-		$("#priceAddModal form")[0].reset();
-		$("#priceAddModal").modal({
-			backdrop : "static"
-		});
-	});
-	//保存按钮点击事件,添加用户信息
-	$("#price_add_btn").click(function() {
-		//模态框中填写的表单数据提交给服务器进行保存
-		$.ajax({
-			url : "addWater_elec",
-			type : "POST",
-			data : $("#priceAddModal form").serialize()+'&'+$.param({"user_id":user_id}),
-			success : function(result) {
-				if (result.code == 300) {
-					alert(result.msg);
-					$("#priceAddModal").modal("hide");
-					return;
-				}
-				if (result.code == 100) {
-					alert(result.msg);
-					$("#priceAddModal").modal("hide");
-					to_page(urlPath,pages);
-					return;
-				}
-			}
-		});
-
-	});
-	//点击删除，删除勾选的快递
-	$("#water_del").click(function() {
-		var nums = "";
-		$.each($(".check_item:checked"), function() {
-			nums += $(this).parents("tr").find("td:eq(1)").text() + ",";
-		})
-		//去除多余的","
-		nums = nums.substring(0, nums.length - 1);//截取字符串
-		if ($(".check_item:checked").length < 1)
-			confirm("未选中任何记录!");
-		else {
-			if (confirm("确认删除编号为【" + nums + "】的记录吗？")) {
-				//发送ajax删除多个用户
-				$.ajax({
-					url : "water_elecDel/" + nums,
-					type : "DELETE",
-					success : function(result) {
-						if (result.code == 300) {
-							alert(result.msg);
-							return;
-						}
-						alert(result.msg);
-						to_page(urlPath,currentPage);
-					}
-				});
-			}
-		}
-	});
-	
-	//按条件查询
+	//按结算日期查询
 	$("#select").click(function() {
-		urlPath = "water_findInput";
+		urlPath = "find_WaterElec_Fee";
 		//去首页
 		to_page(urlPath, 1);
 	});
 	
-	
-	
-	
-	//选择时间
-	!function() {
-		laydate({
-			elem : '#star_date'
-		});
-		laydate({
-			elem : '#end_date'
-		});
-	}();
 </script>
 
 

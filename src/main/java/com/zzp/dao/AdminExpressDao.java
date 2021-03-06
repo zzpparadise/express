@@ -17,6 +17,10 @@ public interface AdminExpressDao {
 
     public void delExpress(int[] delNums);//删除快递
 
-    public List<Express> input_select(String content);//根据条件查询快递
+    public List<Express> input_select(String content);//根据条件查询快递(未取)
+
+    public List<Express> getOlds();//获取已取取快递信息
+
+    public List<Express> select_express_taken(String content);//根据条件查询快递（已取）
     
 }

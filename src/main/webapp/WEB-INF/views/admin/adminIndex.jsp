@@ -161,7 +161,7 @@
                 </div>
                 <button class="roll-nav roll-right fullscreen"><i class="fa fa-arrows-alt"></i></button>
             </div>
-            <div class="content-iframe" style="overflow: hidden;">
+            <div class="content-iframe" style="overflow: hidden; background:url(divcss5-logo.gif)">
                 <div class="mainContent" id="content-main" style="margin: 10px; margin-bottom: 0; padding: 0;">
                     <iframe id="myFrame" class="LRADMS_iframe" width="100%" height="100%" src="home" frameborder="0" data-id="default.html"></iframe>
                 </div>

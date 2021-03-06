@@ -30,6 +30,7 @@ public class AdminExpressController {
     @Autowired
     UserService us;
     
+    //查询未取快递
     @RequestMapping("/allUser")
     @ResponseBody
     public Msg getUserWithJson(@RequestParam(value="pn",defaultValue="1")Integer pn,HttpSession session) {
@@ -39,6 +40,20 @@ public class AdminExpressController {
         //在查询之前调用，传入页码，以及每页的大小
         PageHelper.startPage(pn,5);//分页查询
         List<Express> users=ae.getAlls();
+        //使用pageinfo包装查询结果,封装了详细的分页信息，传入连续显示的页数
+        PageInfo page = new PageInfo(users,5);
+        return Msg.success().add("pageInfo",page);
+    }
+    //查询未取快递
+    @RequestMapping("/getOlds")
+    @ResponseBody
+    public Msg getOlds(@RequestParam(value="pn",defaultValue="1")Integer pn,HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid();
+        //在查询之前调用，传入页码，以及每页的大小
+        PageHelper.startPage(pn,10);//分页查询
+        List<Express> users=ae.getOlds();
         //使用pageinfo包装查询结果,封装了详细的分页信息，传入连续显示的页数
         PageInfo page = new PageInfo(users,5);
         return Msg.success().add("pageInfo",page);
@@ -91,7 +106,7 @@ public class AdminExpressController {
         
         return Msg.success();
     }
-    //根据输入框内容查询快递
+    //根据输入框内容查询未取快递
     @RequestMapping("/select_express")
     @ResponseBody
     public Msg input_select(@RequestParam(value="pn",defaultValue="1")
@@ -107,5 +122,20 @@ public class AdminExpressController {
         PageInfo page = new PageInfo(express,5);
         return Msg.success().add("pageInfo",page);
     }
-    
+  //根据输入框内容查询已取快递
+    @RequestMapping("/select_express_taken")
+    @ResponseBody
+    public Msg select_express_taken(@RequestParam(value="pn",defaultValue="1")
+    Integer pn,@RequestParam(value="content",required=false) String content,
+    HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid(); 
+        //在查询之前调用，传入页码，以及每页的大小
+        PageHelper.startPage(pn,10);//分页查询
+        List<Express> express=ae.select_express_taken(content);
+        //使用pageinfo包装查询结果,封装了详细的分页信息，传入连续显示的页数
+        PageInfo page = new PageInfo(express,5);
+        return Msg.success().add("pageInfo",page);
+    }
 }

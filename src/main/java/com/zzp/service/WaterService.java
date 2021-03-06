@@ -16,6 +16,12 @@ public interface WaterService {
 
     List<User> input_select(String user_id, String content);//根据条件查询
 
+    List<User> water_findInput(String content);//根据结算日期查询未收费用户
+
+    List<Water_elec_fee> getWater_elec_Unpaid();//查询未缴费的水电收费单
+
+    List<Water_elec_fee> find_WaterElec_Fee(String content);//根据结算日期或名字查询收费单
+
     
     
 }

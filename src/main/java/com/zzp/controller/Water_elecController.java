@@ -21,6 +21,7 @@ import com.zzp.pojo.Water_elec_fee;
 import com.zzp.service.AdminService;
 import com.zzp.service.ManageHouseholders;
 import com.zzp.service.WaterService;
+import com.zzp.util.GetYearMonth;
 import com.zzp.util.Msg;
 import com.zzp.util.Retain_2;
 
@@ -40,9 +41,9 @@ public class Water_elecController {
             @RequestParam(value = "pn", defaultValue = "1") Integer pn,
             @RequestParam(value = "user_id", required = false) String user_id,
             HttpSession session) {
-//        Admin admin = (Admin) session.getAttribute("admin");
-//        if(admin==null)
-//            return Msg.invalid(); 
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid(); 
         // 在查询之前调用，传入页码，以及每页的大小
         PageHelper.startPage(pn, 5);// 分页查询
         List<Water_elec_fee> water = ws.getWater(user_id);
@@ -56,8 +57,12 @@ public class Water_elecController {
     @ResponseBody
     public Msg Water_elec(
             @RequestParam(value = "user_id", required = false) Integer user_id,
-            Water_elec_fee water_elec_fee,
-            HttpSession session) {
+        Water_elec_fee water_elec_fee,
+        HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid(); 
+        
         //查询水电单价
         Unit_Price price = as.getPrice();
         double water_unit = price.getWater_price();
@@ -87,9 +92,9 @@ public class Water_elecController {
     @ResponseBody
     @RequestMapping(value="/water_elecDel/{nums}",method=RequestMethod.DELETE)
     public Msg deleteUsers(@PathVariable("nums")String nums,HttpSession session) {//从路径中取出account，转化成用户account
-//       Admin admin = (Admin) session.getAttribute("admin");
-//        if(admin==null)
-//            return Msg.invalid();
+       Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid();
         String[]str_userNames=nums.split(",");
         int delNums[] = new int[str_userNames.length];
         for(int i=0;i<str_userNames.length;i++) {
@@ -106,14 +111,63 @@ public class Water_elecController {
     Integer pn,@RequestParam(value = "user_id", required = false) String user_id,
     @RequestParam(value="content",required=false) String content,
     HttpSession session) {
-//        Admin admin = (Admin) session.getAttribute("admin");
-//        if(admin==null)
-//            return Msg.invalid();
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid();
         //在查询之前调用，传入页码，以及每页的大小
         PageHelper.startPage(pn,5);//分页查询
         List<User> users=ws.input_select(user_id,content);
         //使用pageinfo包装查询结果,封装了详细的分页信息，传入连续显示的页数
         PageInfo page = new PageInfo(users,5);
         return Msg.success().add("pageInfo",page);      
+    }
+    //根据结算日期查询未收费的户主
+    @RequestMapping("/select_NoWaterFee")
+    @ResponseBody
+    public Msg water_findInput(@RequestParam(value="pn",defaultValue="1")
+    Integer pn,HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid(); 
+        //在查询之前调用，传入页码，以及每页的大小
+        PageHelper.startPage(pn,12);//分页查询
+        String content = GetYearMonth.getYearMonth();
+        List<User> users=ws.water_findInput(content);
+        //使用pageinfo包装查询结果,封装了详细的分页信息，传入连续显示的页数
+        PageInfo page = new PageInfo(users,5);
+        return Msg.success().add("pageInfo",page);
+    }
+ // 查询未缴费收费单
+    @RequestMapping("/water_elec_Unpaid")
+    @ResponseBody
+    public Msg getWater_elec_Unpaid(
+            @RequestParam(value = "pn", defaultValue = "1") Integer pn,
+            HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid(); 
+        // 在查询之前调用，传入页码，以及每页的大小
+        PageHelper.startPage(pn,10);// 分页查询
+        List<Water_elec_fee> water = ws.getWater_elec_Unpaid();
+        // 使用pageinfo包装查询结果,封装了详细的分页信息，传入连续显示的页数
+        PageInfo page = new PageInfo(water, 5);
+        return Msg.success().add("pageInfo", page);
+    }
+ // 查询用户收费单
+    @RequestMapping("/find_WaterElec_Fee")
+    @ResponseBody
+    public Msg find_WaterElec_Fee(
+            @RequestParam(value = "pn", defaultValue = "1") Integer pn,
+            @RequestParam(value="content",required=false) String content,
+            HttpSession session) {
+        Admin admin = (Admin) session.getAttribute("admin");
+        if(admin==null)
+            return Msg.invalid(); 
+        // 在查询之前调用，传入页码，以及每页的大小
+        PageHelper.startPage(pn,10);// 分页查询
+        List<Water_elec_fee> water = ws.find_WaterElec_Fee(content);
+        // 使用pageinfo包装查询结果,封装了详细的分页信息，传入连续显示的页数
+        PageInfo page = new PageInfo(water, 5);
+        return Msg.success().add("pageInfo", page);
     }
 }

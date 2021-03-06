@@ -275,7 +275,7 @@
 							<th>面积(m²)</th>
 							<th>楼牌号</th>
 							<th>联系电话</th>
-							<th></th>
+							<th>水电查询</th>
 						</tr>
 					</thead>
 					<tbody>

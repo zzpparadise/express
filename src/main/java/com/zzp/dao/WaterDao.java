@@ -17,5 +17,12 @@ public interface WaterDao {
     void delWater(int[] delNums);//删除勾选的水电记录
 
     List<User> input_select(String user_id, String content);//根据条件查询
+
+    List<User> water_findInput(String content);//根据结算日期查询未收费户主
+
+    List<Water_elec_fee> getWater_elec_Unpaid();//查询未缴费的水电单
+
+    List<Water_elec_fee> find_WaterElec_Fee(String content);//根据结算日期或名字查询收费单
+
     
 }

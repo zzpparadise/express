@@ -36,6 +36,14 @@ public class AdminExpressServiceImpl implements AdminExpressService{
     public List<Express> input_select(String content) {
         return ad.input_select(content);
     }
+    @Override
+    public List<Express> getOlds() {
+        return ad.getOlds();
+    }
+    @Override
+    public List<Express> select_express_taken(String content) {
+        return ad.select_express_taken(content);
+    }
     
 
 }

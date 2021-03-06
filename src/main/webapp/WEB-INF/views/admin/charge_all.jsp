@@ -27,21 +27,9 @@
 
 	
 	<div class="notice_check">
-		<h4>水电收费管理</h4>
-		<div class="l_left">
-			<input type="text" class="find_input" id="find_input" placeholder="根据结算日期查找">
-
-		</div>
-		<button class="check_btn" id="select">查询</button>
-
-
-		<div class="notice_nav r_right">
-			<a class="btn btn-default" id="water_add_btn"><span
-				class="glyphicon glyphicon-plus"></span>新增</a> <a
-				class="btn btn-default" id="water_del"><span
-				class="glyphicon glyphicon-remove"></span>删除</a>
-
-		</div>
+		<hr>
+		<h4>本月待收费用户</h4>
+		
 	</div>
 	<div class="container">
 		<div class="row">
@@ -66,19 +54,19 @@
 		//页面加载完成以后，直接去发送一个ajax请求，要到分页数据
 		var currentPage;//当前页
 		var pages;//总页数
-		var flag;//条件查询或全部查询标志
+		//定义全局路径变量
+		var urlPath = "";
 		$(function() {
-			flag = 1;
+			urlPath = "select_NoWaterFee";
 			//去首页
-			to_page(1, 1);
+			to_page(urlPath,1);
 		})
 
 		//跳转到指定的页码号
-		function to_page(pn, flag) {
-			flag = 1;
+		function to_page(url,pn) {
 			$.ajax({
-				url : "manageUsers",
-				data : "pn=" + pn,
+				url : url,
+				data:{'pn':pn},
 				type : "GET",
 				success : function(result) {
 					if (result.code == 100) {
@@ -87,7 +75,7 @@
 						//解析显示分页信息
 						build_page_info(result);
 						//解析显示分页条
-						build_page_nav(result, flag);
+						build_page_nav(result);
 						currentPage = result.extend.pageInfo.pageNum;//保存当前页码
 						pages = result.extend.pageInfo.pages;
 					} else {
@@ -100,6 +88,12 @@
 		function build_user_table(result) {
 			//清空table表格
 			$("#user_table tbody").empty();
+			$("#user_table thead").empty();
+			if (result.extend.pageInfo.total == 0) {
+				$("<tr></tr>").append("<th>本月没有待收费用户！</th>").appendTo(
+						"#user_table thead");
+				return;
+			}
 			var user = result.extend.pageInfo.list;
 			var tr = $("<tr></tr>");
 			$.each(user, function(index, item) {	
@@ -116,16 +110,16 @@
 				
 				tr.append(user_id).append(householder_name)
 						.append(loupaihao).append(editBtn);
-				//最后一页且记录小于等于4
-				if((result.extend.pageInfo.size != 10) && result.extend.pageInfo.size <= 3){
+				//最后一页且记录小于等于3
+				if((result.extend.pageInfo.size != 12) && result.extend.pageInfo.size <= 3){
 					if(index == result.extend.pageInfo.size-1){
 						tr.appendTo("#user_table tbody");
 						tr = $("<tr></tr>");
 					}
 					
-				}//最后一页且记录大于4
-				if((result.extend.pageInfo.size != 10) && result.extend.pageInfo.size%3!=0){
-					if( (index+1)%3==0 || (index == result.extend.pageInfo.size-1) ){
+				}//最后一页且记录大于3
+				if((result.extend.pageInfo.size != 12) && result.extend.pageInfo.size%3!=0){
+					if( (index+1)%3==0 || (index == result.extend.pageInfo.size-1)){
 						tr.appendTo("#user_table tbody");
 						tr = $("<tr></tr>");
 					}
@@ -133,7 +127,7 @@
 				}
 				
 				//不是最后一页
-				else if( (index+1)%3==0 || index == 9){
+				else if( (index+1)%3==0){
 					tr.appendTo("#user_table tbody");
 					tr = $("<tr></tr>");
 				}
@@ -164,10 +158,10 @@
 				prePageLi.addClass("disabled");
 			} else {
 				firstPageLi.click(function() {
-					switch_select(1, flag);
+					to_page(urlPath, 1);
 				});
 				prePageLi.click(function() {
-					switch_select(result.extend.pageInfo.pageNum - 1, flag);
+					to_page(urlPath, result.extend.pageInfo.pageNum - 1);
 
 				});
 			}
@@ -181,10 +175,10 @@
 				lastPageLi.addClass("disabled");
 			} else {
 				nextLi.click(function() {
-					switch_select(result.extend.pageInfo.pageNum + 1, flag);
+					to_page(urlPath, result.extend.pageInfo.pageNum + 1);
 				});
 				lastPageLi.click(function() {
-					switch_select(result.extend.pageInfo.pages, flag);
+					to_page(urlPath, result.extend.pageInfo.pages);
 				});
 			}
 
@@ -199,7 +193,7 @@
 					numLi.addClass("active");
 				}
 				numLi.click(function() {
-					switch_select(item, flag);
+					to_page(urlPath, item);
 				});
 				ul.append(numLi);
 			});
@@ -209,15 +203,35 @@
 			var navEle = $("<nav></nav>").append(ul);
 			navEle.appendTo("#page_nav_area");
 		}
-		//条件查询或全部查询对应函数
-		function switch_select(data, flag) {
-			if (flag == 1) {
-				to_page(data, 1);
-			}
-			if (flag == 2) {
-				to_page_select(data, 2);
-			}
-		}
+		/* //按结算日期查询
+		$("#select_NoWaterFee").click(function() {
+			urlPath = "select_NoWaterFee";
+			//去首页
+			to_page(urlPath, 1);
+		}); */
+		//“查看”按钮点击后跳转到用户水电收费界面
+		$(document).on("click", ".edit_btn", function() {
+			var user_id = $(this).attr("user-id")
+			$.ajax({
+				url:"return_charge",
+				data:{
+					'user_id' : user_id,
+				},
+				type:"POST",
+				success:function(result) {
+					window.location.href="../admin/charge";
+				}
+
+			});
+		});
+		
+		
+		//选择时间
+		!function() {
+			laydate({
+				elem : '#find_input'
+			});
+		}();
 
 </script>
 

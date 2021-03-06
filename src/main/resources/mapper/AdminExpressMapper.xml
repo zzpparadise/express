@@ -29,4 +29,16 @@
 		or express_company like concat(#{content},'%')
 		or code = #{content})
 	</select>
+	<select id="getOlds" resultType="Express">
+		select * from express where  flag=0
+	</select>
+	<select id="select_express_taken" resultType="Express" parameterType="String">
+		select * from express where  flag=0 and(
+		username like concat('%',#{content},'%')
+		or user_tel like concat('%',#{content})
+		or case_name like concat(#{content},'%')
+		or arrive = #{content}
+		or express_company like concat(#{content},'%')
+		or code = #{content})
+	</select>
 </mapper>

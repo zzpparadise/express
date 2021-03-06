@@ -160,7 +160,7 @@
 <div class="container">
 <div class="row">
 				<div class="col-md-12">
-					<table class="table table-hover" id="user_table">
+					<table class="table table-hover table-striped" id="user_table">
 						<thead>
 							<tr><th ><input type="checkbox" id="check_all"/></th>
 								<th>编号</th>
