@@ -12,7 +12,7 @@
 
 </head>
 <body
-	background="${pageContext.request.contextPath }/img/background.jpg"
+	background="${pageContext.request.contextPath }/img/lufei_aisi.jpg"
 	style="background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">
 	<!-- 修改用户的模态款 -->
 	<div class="modal fade" id="userUpdateModal" tabindex="-1" role="dialog"
@@ -162,7 +162,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-md-offset-3">
-			<div style="height: 150px"></div>
+			<div style="height: 100px"></div>
+				<h4 style="font-size:30px; font-family:华文行楷">个人信息</h4>
 				<table class="table table-hover" id="user_information">
 					<tr><td>用户id</td><td id="userId"></td></tr>
 					<tr><td>账号名</td><td id="userName"></td></tr>

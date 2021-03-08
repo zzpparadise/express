@@ -12,7 +12,7 @@
 <script src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
 
 </head>
-<body style="background-image:url(${pageContext.request.contextPath }/img/background.jpg);
+<body style="background-image:url(${pageContext.request.contextPath }/img/lufei_aisi.jpg);
 		background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">
 	<!-- 导航条 -->
 	<nav class="navbar navbar-default">
@@ -26,7 +26,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#" style="color: green;margin-top:10px">小区物业及快递系统</a>
+				<a class="navbar-brand" href="#" style="color: green;margin-top:10px">我的快递</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -93,8 +93,8 @@
 						aria-expanded="false">菜单 <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="../userCentre/userInfo">个人中心</a></li>
-							<li><a href="#">修改密码</a></li>
-							<li><a href="#">联系客服</a></li>
+							<li><a href="user_water_elec">水电查询</a></li>
+							<li><a href="#">报修/投诉</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="logout">退出登录</a></li>
 						</ul></li>
@@ -191,6 +191,11 @@
 		function build_user_table(result){
 			$("#user_Express tbody").empty();
 			$("#user_Express thead").empty();
+			if (result.extend.pageInfo.total == 0) {
+				$("<tr></tr>").append("<th>暂无快递记录！</th>").appendTo(
+						"#user_Express thead");
+				return;
+			}
 			$("<tr></tr>").append("<th>快递编号</th>").append("<th>收货人</th>").append("<th>电话</th>")
 			.append("<th>快递公司</th>").append("<th>快递柜</th>").append("<th>编号</th>")
 			.append("<th>到达日期</th>").append("<th>取货码</th>").append("<th>取货状态</th>").appendTo("#user_Express thead");	

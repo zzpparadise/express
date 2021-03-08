@@ -47,4 +47,21 @@
 		SELECT * FROM express WHERE user_id=#{param1} and YEAR(arrive)=#{param2} and
 		 express_company=#{param3} order by arrive
 	</select>
+	<select id="getWater" resultType="Water_elec_fee"
+		parameterType="String">
+		select * from water_electricity where user_id=#{user_id} and is_pay = 0
+	</select>
+	<select id="myAllWater" resultType="Water_elec_fee"
+		parameterType="String">
+		select * from water_electricity where user_id=#{user_id}
+	</select>
+	<select id="findWater" resultType="Water_elec_fee"
+		parameterType="String">
+		select * from water_electricity where user_id=#{param1} 
+		and end_date like concat(#{param2},'%')
+	</select>
+	<update id="pay_water" parameterType="String">
+		update water_electricity set is_pay = 1 where user_id = #{param1} 
+		and id = #{param2}
+	</update>
 </mapper>

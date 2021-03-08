@@ -203,12 +203,6 @@
 			var navEle = $("<nav></nav>").append(ul);
 			navEle.appendTo("#page_nav_area");
 		}
-		/* //按结算日期查询
-		$("#select_NoWaterFee").click(function() {
-			urlPath = "select_NoWaterFee";
-			//去首页
-			to_page(urlPath, 1);
-		}); */
 		//“查看”按钮点击后跳转到用户水电收费界面
 		$(document).on("click", ".edit_btn", function() {
 			var user_id = $(this).attr("user-id")

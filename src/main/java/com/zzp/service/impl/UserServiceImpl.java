@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.zzp.dao.UserDao;
 import com.zzp.pojo.Express;
 import com.zzp.pojo.User;
+import com.zzp.pojo.Water_elec_fee;
 import com.zzp.service.UserService;
 
 @Service
@@ -70,6 +71,22 @@ public class UserServiceImpl implements UserService {
     public User findByTel(String user_tel) {
         User user=userDao.findUserByTel(user_tel);
         return user;
+    }
+    @Override
+    public List<Water_elec_fee> getWater(String user_id) {
+        return userDao.getWater(user_id);
+    }
+    @Override
+    public List<Water_elec_fee> myAllWater(String user_id) {
+        return userDao.myAllWater(user_id);
+    }
+    @Override
+    public List<Water_elec_fee> findWater(String user_id, String content) {
+        return userDao.findWater(user_id,content);
+    }
+    @Override
+    public void pay_water(String user_id, String id) {
+       userDao.pay_water(user_id,id);
     }
 
 }

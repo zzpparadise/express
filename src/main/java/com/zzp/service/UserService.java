@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.zzp.pojo.Express;
 import com.zzp.pojo.User;
+import com.zzp.pojo.Water_elec_fee;
 
 public interface UserService {
     //通过名字查询用户(登录)
@@ -32,6 +33,10 @@ public interface UserService {
     public List<Express> selectByYearCompany(int user_id, String year,
             String company);
     public User findByTel(String user_tel);
+    public List<Water_elec_fee> getWater(String user_id);//查询未交费水电信息
+    public List<Water_elec_fee> myAllWater(String user_id);//查询所有水电收费信息
+    public List<Water_elec_fee> findWater(String user_id, String content);//根据添加查询
+    public void pay_water(String user_id, String id);//支付水电费
 
   
 

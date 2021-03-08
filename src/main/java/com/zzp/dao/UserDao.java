@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zzp.pojo.Express;
 import com.zzp.pojo.User;
+import com.zzp.pojo.Water_elec_fee;
 
 
 @Repository
@@ -36,6 +37,10 @@ public interface UserDao {
     //通过年、公司查询
     public List<Express> selectByYearCompany(int user_id, String year,
             String company);
+    public List<Water_elec_fee> getWater(String user_id);//查询未交水电信息
+    public List<Water_elec_fee> myAllWater(String user_id);//查询所有水电收费信息
+    public List<Water_elec_fee> findWater(String user_id, String content);//根据添加查询
+    public void pay_water(String user_id, String id);//支付水电费
     
     
 }
