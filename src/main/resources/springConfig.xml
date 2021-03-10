@@ -52,7 +52,8 @@
         <!-- 注意使用 sqlSessionFactoryBeanName 避免出现spring 扫描组件失效问题 -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
-    
+    <!--文件上传配置  -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
     <!-- 7.扫描Service -->
     <context:component-scan base-package="com.zzp.service"/>
 </beans>

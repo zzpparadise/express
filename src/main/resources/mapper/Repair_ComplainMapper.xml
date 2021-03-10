@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzp.dao.Repair_ComplainDao">
+	<insert id="addComplain_reapir">
+		insert into complain_repair(user_name,user_id,is_master,content,img_path,type)
+		values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6})
+	</insert>
+
+</mapper>

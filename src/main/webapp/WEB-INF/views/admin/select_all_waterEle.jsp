@@ -35,13 +35,13 @@
 		<button class="check_btn" id="select">查询</button>
 
 
-		<div class="notice_nav r_right">
+		<!-- <div class="notice_nav r_right">
 			<a class="btn btn-default" id="water_add_btn"><span
 				class="glyphicon glyphicon-plus"></span>新增</a> <a
 				class="btn btn-default" id="water_del"><span
 				class="glyphicon glyphicon-remove"></span>删除</a>
 
-		</div>
+		</div> -->
 	</div>
 	<div class="container">
 		<div class="row">

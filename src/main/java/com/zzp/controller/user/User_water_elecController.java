@@ -97,4 +97,5 @@ public class User_water_elecController {
        userService.pay_water(user_id,id);
        return Msg.success();
     }
+    
 }

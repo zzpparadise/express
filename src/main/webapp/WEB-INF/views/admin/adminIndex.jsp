@@ -64,7 +64,7 @@
         <header class="main-header">
             <a href="javascript:void (0)" class="logo">
                 <span class="logo-mini"></span>
-                <span class="logo-lg"><font size="4">小区物业及快递管理系统 </font></span>
+                <span class="logo-lg"><font size="4">小区物业及快递服务系统 </font></span>
             </a>
             <nav class="navbar navbar-static-top" style="display:block;font-weight: 500;font-size: 14px;color: #fff;padding-left: 10px">
                 <span class="index_top"><strong></strong></span>
