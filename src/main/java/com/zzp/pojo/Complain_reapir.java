@@ -1,5 +1,6 @@
 package com.zzp.pojo;
 
+
 public class Complain_reapir {
     private int id;
     private String user_name;//用户账号
@@ -8,6 +9,7 @@ public class Complain_reapir {
     private String content;//报修/投诉内容
     private String img_path;//图片所在路径
     private String type;//类型是报修还是投诉
+    private String date;//发表时间
     public int getId() {
         return id;
     }
@@ -50,5 +52,12 @@ public class Complain_reapir {
     public void setType(String type) {
         this.type = type;
     }
+    public String getDate() {
+        return date;
+    }
+    public void setDate(String date) {
+        this.date = date;
+    }
+    
     
 }

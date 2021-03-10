@@ -279,7 +279,7 @@
 		urlPath = "user_find_water";
 		to_page(urlPath, 1);
 	});
-	//“支付”按钮点击后出现模态框
+	//“支付”按钮点击
 	$(document).on("click", ".pay_btn", function() {
 		id = $(this).attr("btn_user_id");
 		$.ajax({

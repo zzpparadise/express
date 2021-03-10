@@ -18,8 +18,8 @@ public class DownloadPicture {
             if (fileType.equals("jpg") || fileType.equals("png")
                     || fileType.equals("JPG") || fileType.equals("PNG")
                     ) {
-                
-                path = "D:/XiaoQu_img/repair_img/" + new Date().getTime() + originalFilename;
+                String picture_name = new Date().getTime() + originalFilename;
+                path = "D:/XiaoQu_img/img/" + picture_name;
                 File newFile = new File(path);
                 //通过CommonsMultipartFile的方法直接写文件(注意这个时候）
                 try {
@@ -27,7 +27,7 @@ public class DownloadPicture {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                return path;
+                return picture_name;
             } else {
                 return "fail";
             }

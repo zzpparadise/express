@@ -1,6 +1,8 @@
 package com.zzp.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class GetYearMonth {
     public static String getYearMonth() {
@@ -14,5 +16,10 @@ public class GetYearMonth {
         }
         String year_month = year1+"-"+month2;
         return year_month;
+    }
+    public static String getYearMonthDay() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        String a = df.format(new Date());
+        return a;
     }
 }

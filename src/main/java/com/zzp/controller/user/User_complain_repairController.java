@@ -1,10 +1,7 @@
 package com.zzp.controller.user;
 
 
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,9 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.zzp.pojo.Complain_reapir;
 import com.zzp.pojo.User;
+import com.zzp.pojo.Water_elec_fee;
 import com.zzp.service.Repair_ComplainService;
 import com.zzp.util.DownloadPicture;
+import com.zzp.util.GetYearMonth;
 import com.zzp.util.Msg;
 
 @Controller
@@ -46,14 +48,61 @@ public class User_complain_repairController {
         if(user==null)
             return Msg.invalid();
         String img_path = DownloadPicture.downloadPicture(file);
-        if(img_path.equals("file_null") || img_path.equals("fail") ) {
+        if(img_path.equals("fail") || content.equals("")) {
             return Msg.fail();
+        }
+        if(img_path.equals("file_null")) {
+            img_path = "no_picture";
         }
         String user_name = user.getUser_name();
         int user_id = user.getUser_id();
         int is_master = user.getIs_master();
-        rc.addComplain_reapir(user_name,user_id,is_master,content,img_path,type);
+        String date = GetYearMonth.getYearMonthDay();
+        rc.addComplain_reapir(user_name,user_id,is_master,content,img_path,type,date);
              
         return Msg.success();
+    }
+    // 查询报修信息
+    @RequestMapping("/user_repair_select")
+    @ResponseBody
+    public Msg user_repair_select(
+            @RequestParam(value = "pn", defaultValue = "1") Integer pn,
+            HttpSession session) {
+        User user=(User) session.getAttribute("user");
+        if(user==null)
+            return Msg.invalid(); 
+        // 在查询之前调用，传入页码，以及每页的大小
+        PageHelper.startPage(pn, 5);// 分页查询
+        List<Complain_reapir> water = rc.getUser_repair(user.getUser_id());
+        // 使用pageinfo包装查询结果,封装了详细的分页信息，传入连续显示的页数
+        PageInfo page = new PageInfo(water, 5);
+        return Msg.success().add("pageInfo", page);
+    }
+ // 查询投诉信息
+    @RequestMapping("/user_complaint_select")
+    @ResponseBody
+    public Msg user_complain_select(
+            @RequestParam(value = "pn", defaultValue = "1") Integer pn,
+            HttpSession session) {
+        User user=(User) session.getAttribute("user");
+        if(user==null)
+            return Msg.invalid(); 
+        // 在查询之前调用，传入页码，以及每页的大小
+        PageHelper.startPage(pn, 5);// 分页查询
+        List<Complain_reapir> water = rc.getUser_complain(user.getUser_id());
+        // 使用pageinfo包装查询结果,封装了详细的分页信息，传入连续显示的页数
+        PageInfo page = new PageInfo(water, 5);
+        return Msg.success().add("pageInfo", page);
+    }
+ // 查询具体内容
+    @RequestMapping(value="/userCheck_Complain_reapir",method=RequestMethod.GET)
+    @ResponseBody
+    public Msg userCheck_Complain_reapir(@RequestParam(value = "id", defaultValue = "false") String id,
+            HttpSession session) {
+        User user=(User) session.getAttribute("user");
+        if(user==null)
+            return Msg.invalid();
+        Complain_reapir cr = rc.Check_Complain_reapir_Content(id);      
+        return Msg.success().add("Complain_reapir", cr);
     }
 }
