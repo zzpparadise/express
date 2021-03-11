@@ -146,4 +146,16 @@ public class AdminController {
         model.setViewName("admin/select_all_waterEle");
         return model;
     }
+    // 未受理报修、投诉查询界面
+    @RequestMapping("/repair_complain")
+    public ModelAndView repair_complain(ModelAndView model, HttpSession session) {
+        model.setViewName("admin/repair_complain");
+        return model;
+    }
+    // 已受理报修、投诉查询界面
+    @RequestMapping("/has_handle")
+    public ModelAndView has_handle(ModelAndView model, HttpSession session) {
+        model.setViewName("admin/has_handle");
+        return model;
+    }
 }

@@ -10,6 +10,8 @@ public class Complain_reapir {
     private String img_path;//图片所在路径
     private String type;//类型是报修还是投诉
     private String date;//发表时间
+    private String tel;//电话
+    private int state;//受理状态
     public int getId() {
         return id;
     }
@@ -57,6 +59,18 @@ public class Complain_reapir {
     }
     public void setDate(String date) {
         this.date = date;
+    }
+    public String getTel() {
+        return tel;
+    }
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+    public int getState() {
+        return state;
+    }
+    public void setState(int state) {
+        this.state = state;
     }
     
     

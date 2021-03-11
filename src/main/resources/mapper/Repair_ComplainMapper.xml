@@ -2,16 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zzp.dao.Repair_ComplainDao">
 	<insert id="addComplain_reapir">
-		insert into complain_repair(user_name,user_id,is_master,content,img_path,type,date)
-		values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7}) 
+		insert into complain_repair(user_name,user_id,is_master,content,img_path,type,date,tel)
+		values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8}) 
 	</insert>
 	<select id="getUser_repair" resultType="Complain_reapir" parameterType="int">
-		select * from complain_repair where  user_id=#{user_id} and type = "报修"
+		select id,user_name,type,date,state from complain_repair where  user_id=#{user_id} and type = "报修"
 	</select>
 	<select id="getUser_compalin" resultType="Complain_reapir" parameterType="int">
-		select * from complain_repair where  user_id=#{user_id} and type = "投诉"
+		select id,user_name,type,date,state from complain_repair where  user_id=#{user_id} and type = "投诉"
 	</select>
 	<select id="Check_Complain_reapir_Content" resultType="Complain_reapir">
 		select * from complain_repair where id = #{id} 
+	</select>
+	<delete id="userDelete_Complain_reapir" parameterType="String">
+		delete from complain_repair where id = #{id}
+	</delete>
+	<select id="user_find_shuidian" resultType="Complain_reapir">
+		select id,user_name,type,date,state from complain_repair where  user_id=#{param1} 
+		and date like concat(#{param2},'%') 
 	</select>
 </mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzp.dao.Admin_repair_complainDao">
+	<select id="getRepair_complain" resultType="Complain_reapir">
+		select id,user_name,tel,type,date,state from complain_repair where state = 0
+	</select>
+	<select id="admin_find" resultType="Complain_reapir" parameterType="String">
+		select * from complain_repair where state = 0 and
+		(user_name = #{content}  
+		or type = #{content}
+		or date like concat(#{content},'%'))	
+	</select>
+	<update id="admin_shouli" parameterType="String">
+		update complain_repair set state = 1 where id = #{id} 
+	</update>
+	
+	<select id="admin_has_handle" resultType="Complain_reapir">
+		select id,user_name,tel,type,date,state from complain_repair where state = 1
+	</select>
+	<select id="admin_find_has_handle" resultType="Complain_reapir" parameterType="String">
+		select * from complain_repair where state = 1 and
+		(user_name = #{content}  
+		or type = #{content}
+		or date like concat(#{content},'%'))	
+	</select>
+</mapper>

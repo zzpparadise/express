@@ -15,7 +15,7 @@
 <body
 	style="background-image:url(${pageContext.request.contextPath }/img/lufei_aisi.jpg);
 		background-repeat: no-repeat; background-size: 100% 100%; background-attachment: fixed;">
-	<!-- 添加修改密码模态框-->
+	<!-- 添加发布报修/投诉模态框-->
 	<div class="modal fade" id="userRepairOrComplainModal" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
@@ -33,7 +33,7 @@
 							<label for="inputEmail3" class="col-sm-3 control-label">报修/投诉:</label>
 							<div class="col-sm-9">
 								<textarea class="form-control" rows="3" name="content"
-									id="content"></textarea>
+									id="content" placeholder="添加描述，不得超过500字"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
@@ -75,7 +75,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-  						<div id="content_check" class="col-md-6" style="font-size:20px;color:red"></div>
+  						<div id="content_check" class="col-md-6" style="font-size:20px;color:blue"></div>
   						<div class="col-md-6"><img id="user_img" alt="-------无图片-------"  height="250" width="400"></div>
 					</div>
 				</div>
@@ -111,10 +111,10 @@
 				</ul>
 				<form id="selectForm" class="navbar-form navbar-left">
 					<div class="form-group">
-						<input type="text" id="user_find_water" class="form-control"
+						<input type="text" id="find_shuidian_input" class="form-control"
 							placeholder="输入日期查询">
 					</div>
-					<button type="button" id="user_find_btn" class="btn btn-default">查询</button>
+					<button type="button" id="user_find_shuidian" class="btn btn-default">查询</button>
 				</form>
 				<ul class="nav navbar-nav navbar-right">
 					<c:if test="${ sessionScope.user != null }">
@@ -164,12 +164,12 @@ var pages;//总页数
 var urlPath = "";
 //跳转到指定的页码号
 function to_page(url, pn) {
-	//var find_input = $("#user_find_water").val();
+	var user_find_shuidian = $("#find_shuidian_input").val();
 	$.ajax({
 		url : url,
 		data : {
-			'pn' : pn
-	//		'content' : find_input
+			'pn' : pn,
+			'content' : user_find_shuidian
 		},
 		type : "GET",
 		success : function(result) {
@@ -202,7 +202,7 @@ function build_user_table(result) {
 
 	$("<tr></tr>").append("<th>编号</th>").append(
 			"<th>用户</th>").append("<th>发布时间</th>")
-			.append("<th>类型</th>").appendTo(
+			.append("<th>类型</th>").append("<th>受理状态</th>").appendTo(
 					"#repair_complain thead");
 
 	var repair_complain = result.extend.pageInfo.list;
@@ -216,19 +216,35 @@ function build_user_table(result) {
 								item.date);
 						var type = $("<td></td>").append(
 								item.type);
+						if(item.type == "报修"){
+							type.attr("style","color:#6633cc");
+						}
+						else{
+							type.attr("style","color:red");
+						}
+						var state = $("<td></td>").append(item.state);
+						if (item.state == 0) {
+							state = $("<td>待处理</td>").attr("style",
+									"color:#871F78");
+						} else {
+							state = $("<td>已受理</td>").attr("style",
+									"color:blue");
+						}
+						
+						
 						var check = $("<button></button>").addClass(
 							"btn btn-primary btn-sm check_btn").append("查看");
 							//为按钮添加一个自定义的属性，来表示当前用户的account
 						check.attr("id",item.id);
 						var del = $("<button></button>").addClass(
 						"btn btn-danger btn-sm del_btn").append("删除");
-						del.attr("user_id",item.user_id);
+						del.attr("id",item.id);
 						
 						var btnTd = $("<td></td>").append(check).append("  ").append(del);
 
 						$("<tr></tr>").append(id)
 								.append(user_name).append(date)
-								.append(type).append(btnTd).appendTo(
+								.append(type).append(state).append(btnTd).appendTo(
 										"#repair_complain tbody");
 					});
 }
@@ -298,17 +314,6 @@ function build_page_nav(result) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 	//点击 报修或投诉按钮出现模态框
 	$("#repair_or_complain").click(function() {
 		$("#userRepairOrComplainModal form")[0].reset();
@@ -332,15 +337,27 @@ function build_page_nav(result) {
 	        processData: false,  
 	        contentType: false,
 			success:function(result){
+				if(result.code == 200){
+					alert("内容不能为空！");
+					return;
+				}
+				
 				alert(result.msg);
 				$("#userRepairOrComplainModal").modal("hide");
+				if(type == "报修"){
+					to_page("user_repair_select",1);
+				}else if(type == "投诉"){
+					to_page("user_complaint_select",1);
+				}
 			}
 		});
 	});
+	//查看报修
 	$("#user_repair").click(function() {
 		urlPath="user_repair_select";
 		to_page(urlPath, 1);
 	});
+	//查看投诉
 	$("#user_complaint").click(function() {
 		urlPath="user_complaint_select";
 		to_page(urlPath, 1);
@@ -358,24 +375,46 @@ function build_page_nav(result) {
 					//内容
 					$("#content_check").text(result.extend.Complain_reapir.content);
 					//图片
+					if(result.extend.Complain_reapir.img_path == "no_picture"){
+						$("#user_img").removeAttr("src");
+					}else{
 					var img = "/img/"+result.extend.Complain_reapir.img_path
 					$("#user_img").attr("src",img);
+					}
 					$("#checkContentModal").modal({
 						backdrop : "static"
 					});
 				}
 			});
-		
-		
-		
-		
-		
-		/* $("#content_check").text("顾客感觉到发个快递大范甘迪鬼地方个发鬼地方个梵蒂冈梵蒂冈的反个 给对方大股东非官方个吉利金刚");
-		$("#user_img").attr("src","/img/1615375744374cc.jpg");
-		$("#checkContentModal").modal({
-			backdrop : "static"
-		}); */
 	});
-	
+	//删除记录
+	$(document).on("click",".del_btn",function(){
+		var bianhao = $(this).attr("id");
+		if(confirm("确认删除编号为【"+bianhao+"】的记录吗？")){	
+		 $.ajax({
+				url:"userDelete_Complain_reapir",
+				data : {
+					_method:"DELETE", // 将请求转变为DELETE请求(delete携带data处理)
+					'id' : bianhao
+				},
+				type:"POST",
+				success:function(result){
+					if(result.code==300){
+						alert(result.msg);
+						window.location.href="../index/login";
+					}
+					if(result.code==100){
+						alert("删除成功！");
+						to_page(urlPath,currentPage);
+					}
+				}
+			});
+		}
+	});
+	//按条件查找
+	$("#user_find_shuidian").click(function() {
+		 urlPath = "user_find_shuidian";
+		to_page(urlPath, 1);
+	});
 </script>
 </html>

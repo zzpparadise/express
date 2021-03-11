@@ -57,8 +57,9 @@ public class User_complain_repairController {
         String user_name = user.getUser_name();
         int user_id = user.getUser_id();
         int is_master = user.getIs_master();
+        String tel = user.getUser_tel();
         String date = GetYearMonth.getYearMonthDay();
-        rc.addComplain_reapir(user_name,user_id,is_master,content,img_path,type,date);
+        rc.addComplain_reapir(user_name,user_id,is_master,content,img_path,type,date,tel);
              
         return Msg.success();
     }
@@ -99,10 +100,35 @@ public class User_complain_repairController {
     @ResponseBody
     public Msg userCheck_Complain_reapir(@RequestParam(value = "id", defaultValue = "false") String id,
             HttpSession session) {
+        Complain_reapir cr = rc.Check_Complain_reapir_Content(id);      
+        return Msg.success().add("Complain_reapir", cr);
+    }
+ // 删除报修/投诉信息
+    @RequestMapping(value="/userDelete_Complain_reapir",method=RequestMethod.POST)
+    @ResponseBody
+    public Msg userDelete_Complain_reapir(@RequestParam(value = "id", defaultValue = "false") String id,
+            HttpSession session) {
         User user=(User) session.getAttribute("user");
         if(user==null)
             return Msg.invalid();
-        Complain_reapir cr = rc.Check_Complain_reapir_Content(id);      
-        return Msg.success().add("Complain_reapir", cr);
+        System.out.println(id);
+        rc.userDelete_Complain_reapir(id);      
+        return Msg.success();
+    }
+ // 按日期查询
+    @RequestMapping(value="/user_find_shuidian",method=RequestMethod.GET)
+    @ResponseBody
+    public Msg user_find_shuidian(@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+            @RequestParam(value = "content", defaultValue = "content") String content,
+            HttpSession session) {
+        User user=(User) session.getAttribute("user");
+        if(user==null)
+            return Msg.invalid();
+        // 在查询之前调用，传入页码，以及每页的大小
+        PageHelper.startPage(pn, 5);// 分页查询
+        List<Complain_reapir> cr = rc.user_find_shuidian(user.getUser_id(),content);
+        // 使用pageinfo包装查询结果,封装了详细的分页信息，传入连续显示的页数
+        PageInfo page = new PageInfo(cr, 5);
+        return Msg.success().add("pageInfo", page);
     }
 }
