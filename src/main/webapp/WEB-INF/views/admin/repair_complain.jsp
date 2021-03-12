@@ -292,7 +292,7 @@
 			type : "PUT",
 			success : function(result) {
 				if (result.code == 100) {
-					alert("支付成功");
+					alert("已受理");
 					to_page(urlPath, currentPage);
 				}
 				if(result.code==300){

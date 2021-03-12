@@ -14,4 +14,31 @@
 		electricity_price = #{electricity_price} 
 		where id=1
 	</update>
+	
+	<select id="getMsg1" resultType="int">
+		SELECT COUNT(user_id) FROM users WHERE is_master = 1
+	</select>
+	<select id="getMsg2" resultType="int">
+		SELECT COUNT(id) FROM water_electricity WHERE end_date LIKE concat(#{content},'%') 
+	</select>
+	<select id="getMsg3" resultType="int">
+		SELECT COUNT(id) FROM water_electricity WHERE is_pay = 0
+	</select>
+	<select id="getMsg4" resultType="int">
+		SELECT COUNT(id) FROM express WHERE flag = 1
+	</select>
+	<select id="getMsg5" resultType="int">
+		SELECT COUNT(id) FROM express WHERE arrive = #{content}
+	</select>
+	<select id="getMsg6" resultType="int">
+		SELECT COUNT(id) FROM express WHERE arrive LIKE concat(#{content},'%') 
+	</select>
+	<select id="getMsg7" resultType="int">
+		SELECT COUNT(id) FROM complain_repair WHERE complain_repair.date LIKE concat(#{content},'%') 
+		AND complain_repair.type = "报修"
+	</select>
+	<select id="getMsg8" resultType="int">
+		SELECT COUNT(id) FROM complain_repair WHERE complain_repair.date LIKE concat(#{content},'%') 
+		AND complain_repair.type = "投诉" 
+	</select>
 </mapper>

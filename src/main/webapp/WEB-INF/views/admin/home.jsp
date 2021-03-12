@@ -13,6 +13,28 @@
     <script src="${pageContext.request.contextPath }/js/charts/Chart.js"></script>
     <script  src="${pageContext.request.contextPath }/js/echarts/echarts-all.js"></script>
     <script>
+    	$.ajax({
+			url : "home_msg",
+			type : "GET",
+			success : function(result) {
+				if(result.code == 100){
+					$("#msg1").html(result.extend.msg1+"<span>户</span>");
+					$("#msg2").html(result.extend.msg2+"<span>条</span>");
+					$("#msg3").html(result.extend.msg3+"<span>条</span>");
+					$("#msg4").html(result.extend.msg4+"<span>件</span>");
+					$("#msg5").html(result.extend.msg5+"<span>件</span>");
+					$("#msg6").html(result.extend.msg6+"<span>件</span>");
+					$("#msg7").html(result.extend.msg7+"<span>条</span>");
+					$("#msg8").html(result.extend.msg8+"<span>条</span>");
+				}
+				if (result.code == 300) {
+					alert(result.msg);
+				} 
+			}
+		});
+    
+    
+    
         $(function () {
             Canvas1();
             Canvas2();
@@ -70,23 +92,23 @@
                 bezierCurve: false,
             });
         }
-//        function Canvas3() {
-//            var randomScalingFactor = function () { return Math.round(Math.random() * 100) };
-//            var lineChartData = {
-//                labels: ["未整理", "已整理", "待审核", "已审核", "未交办", "已交办", "未办理", "已办理", "未反馈", "已反馈", "未办结", "已办结"],
-//                datasets: [
-//                    {
-//                        fillColor: "#578ebe",
-//                        data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
-//                    }
-//                ]
-//            }
-//            var ctx = document.getElementById("Canvas3").getContext("2d");
-//            window.myLine = new Chart(ctx).Bar(lineChartData, {
-//                bezierCurve: false,
-//
-//            });
-//        }
+        function Canvas3() {
+            var randomScalingFactor = function () { return Math.round(Math.random() * 100) };
+            var lineChartData = {
+                labels: ["未整理", "已整理", "待审核", "已审核", "未交办", "已交办", "未办理", "已办理", "未反馈", "已反馈", "未办结", "已办结"],
+                datasets: [
+                    {
+                        fillColor: "#578ebe",
+                        data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
+                    }
+                ]
+           }
+            var ctx = document.getElementById("Canvas3").getContext("2d");
+            window.myLine = new Chart(ctx).Bar(lineChartData, {
+                bezierCurve: false,
+
+            });
+        } 
     </script>
     <script>
         $(function(){
@@ -140,8 +162,8 @@
                                 }
                             }
                         },
-                        data: [120,210,100,40,120,50,60,50,250,230,70],
-                        markPoint: {
+                        data: [120,100,100,40,120,50,60,50,250,230,70],
+                       /*  markPoint: {
                             tooltip: {
                                 trigger: 'item',
                                 backgroundColor: 'rgba(0,0,0,0)',
@@ -164,7 +186,7 @@
                                 {xAxis:9, y: 350, name:'Gauge', symbolSize:20, symbol: 'image://../asset/ico/仪表盘.png'},
                                 {xAxis:10, y: 350, name:'Funnel', symbolSize:20, symbol: 'image://../asset/ico/漏斗图.png'},
                             ]
-                        }
+                        } */
                     }
                 ]
             };
@@ -176,20 +198,20 @@
     <div id="areascontent">
         <div class="rows" style="margin-bottom: 0.8%; overflow: hidden;">
             <div style="float: left; width: 69.2%;">
-                <div style="height: 100%; border: 1px solid #e6e6e6; overflow: hidden;">
+                <div style="height: 47%; border: 1px solid #e6e6e6; overflow: hidden;">
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #578ebe;">
                             <div class="stat-icon">
                                 <i class="fa fa-clock-o"></i>
                             </div>
-                            <h2 class="m-top-none">17<span>件</span></h2>
-                            <h5>待领取快递</h5>
+                            <h2 class="m-top-none" id = msg1><span>户</span></h2>
+                            <h5>已入住用户</h5>
                         </div>
                     </div>
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #e35b5a;">
-                            <h2 class="m-top-none">12<span>件</span></h2>
-                            <h5>所有快递</h5>
+                            <h2 class="m-top-none" id = msg2><span>条</span></h2>
+                            <h5>本月账单</h5>
                             <div class="stat-icon">
                                 <i class="fa fa-clock-o"></i>
                             </div>
@@ -197,8 +219,8 @@
                     </div>
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #44b6ae;">
-                            <h2 class="m-top-none">20<span>件</span></h2>
-                            <h5>意见建议</h5>
+                            <h2 class="m-top-none" id = msg3><span>条</span></h2>
+                            <h5>待支付账单</h5>
                             <div class="stat-icon">
                                 <i class="fa fa-file-text-o"></i>
                             </div>
@@ -206,8 +228,8 @@
                     </div>
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #8775a7; margin-right: 0px;">
-                            <h2 class="m-top-none">6<span>件</span></h2>
-                            <h5>联名提案</h5>
+                            <h2 class="m-top-none" id = msg4><span>件</span></h2>
+                            <h5>待领取快递</h5>
                             <div class="stat-icon">
                                 <i class="fa fa-file-text-o"></i>
                             </div>
@@ -215,8 +237,8 @@
                     </div>
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #4f5c65; margin-bottom: 0px;">
-                            <h2 class="m-top-none">4<span>件</span></h2>
-                            <h5>个人提案</h5>
+                            <h2 class="m-top-none" id = msg5><span>件</span></h2>
+                            <h5>今日快递</h5>
                             <div class="stat-icon">
                                 <i class="fa fa-file-text-o"></i>
                             </div>
@@ -224,8 +246,8 @@
                     </div>
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #14aae4; margin-bottom: 0px;">
-                            <h2 class="m-top-none">5<span>件</span></h2>
-                            <h5>民主党派提案</h5>
+                            <h2 class="m-top-none" id = msg6><span>件</span></h2>
+                            <h5>本月快递</h5>
                             <div class="stat-icon">
                                 <i class="fa fa-file-text-o"></i>
                             </div>
@@ -233,8 +255,8 @@
                     </div>
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #949FB1; margin-bottom: 0px;">
-                            <h2 class="m-top-none">3<span>件</span></h2>
-                            <h5>人民团体提案</h5>
+                            <h2 class="m-top-none" id = msg7><span>条</span></h2>
+                            <h5>今日报修</h5>
                             <div class="stat-icon">
                                 <i class="fa fa-file-text-o"></i>
                             </div>
@@ -242,8 +264,8 @@
                     </div>
                     <div class="dashboard-stats">
                         <div class="dashboard-stats-item" style="background-color: #f29503; margin-right: 0px; margin-bottom: 0px;">
-                            <h2 class="m-top-none">6<span>件</span></h2>
-                            <h5>其它党派提案</h5>
+                            <h2 class="m-top-none" id = msg8><span>条</span></h2>
+                            <h5>今日投诉</h5>
                             <div class="stat-icon">
                                 <i class="fa fa-file-text-o"></i>
                             </div>
@@ -254,7 +276,7 @@
             <div style="float: right; width: 30%;">
                 <div style="height: 221px; border: 1px solid #e6e6e6; background-color: #fff;">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-area-chart fa-lg" style="padding-right: 5px;"></i>提案结果统计</div>
+                        <div class="panel-heading"><i class="fa fa-area-chart fa-lg" style="padding-right: 5px;"></i>结果统计</div>
                         <div class="panel-body">
                             <canvas id="Canvas2" style="height: 165px; width: 100%;"></canvas>
                         </div>
@@ -266,7 +288,7 @@
             <div style="float: left; width: 69.2%;">
                 <div style="height: 290px; border: 1px solid #e6e6e6; background-color: #fff;">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-bar-chart fa-lg" style="padding-right: 5px;"></i>提案分类统计</div>
+                        <div class="panel-heading"><i class="fa fa-bar-chart fa-lg" style="padding-right: 5px;"></i>分类统计</div>
                         <div class="panel-body">
                             <p  id="bar01" style="height: 250px; width: 100%;"></p>
                         </div>
@@ -276,14 +298,14 @@
             <div style="float: right; width: 30%;">
                 <div style="height: 290px; border: 1px solid #e6e6e6; background-color: #fff;">
                     <div class="panel panel-default">
-                        <div class="panel-heading"><i class="fa fa-pie-chart fa-lg" style="padding-right: 5px;"></i>提案组成</div>
+                        <div class="panel-heading"><i class="fa fa-pie-chart fa-lg" style="padding-right: 5px;"></i>组成</div>
                         <div class="panel-body">
                             <canvas id="Canvas1" style="height: 180px; width: 100%; margin-top: 10px;"></canvas>
                             <div style="text-align: center; padding-top: 15px;">
-                                <span><i class="fa fa-square" style="color: #F7464A; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>个人提案</span>
-                                <span style="margin-left: 10px;"><i class="fa fa-square" style="color: #46BFBD; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>民主党派提案</span>
-                                <span style="margin-left: 10px;"><i class="fa fa-square" style="color: #FDB45C; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>人民团体提案</span>
-                                <span style="margin-left: 10px;"><i class="fa fa-square" style="color: #949FB1; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>其它党派提案</span>
+                                <span><i class="fa fa-square" style="color: #F7464A; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>1</span>
+                                <span style="margin-left: 10px;"><i class="fa fa-square" style="color: #46BFBD; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>2</span>
+                                <span style="margin-left: 10px;"><i class="fa fa-square" style="color: #FDB45C; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>3</span>
+                                <span style="margin-left: 10px;"><i class="fa fa-square" style="color: #949FB1; font-size: 20px; padding-right: 5px; vertical-align: middle; margin-top: -3px;"></i>4</span>
                             </div>
                         </div>
                     </div>
