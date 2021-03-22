@@ -37,6 +37,8 @@ public interface UserService {
     public List<Water_elec_fee> myAllWater(String user_id);//查询所有水电收费信息
     public List<Water_elec_fee> findWater(String user_id, String content);//根据添加查询
     public void pay_water(String user_id, String id);//支付水电费
+    public Water_elec_fee tongjiMarch(int user_id, String string);//统计水电
+    
 
   
 

@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.zzp.dao.StatisticsDao;
 import com.zzp.dao.UserDao;
 import com.zzp.pojo.Express;
 import com.zzp.pojo.User;
@@ -15,6 +16,8 @@ public class UserServiceImpl implements UserService {
     
     @Autowired
     UserDao userDao;
+    @Autowired
+    StatisticsDao statDao;
     @Override
     public User findUserByName(String username) {
         
@@ -87,6 +90,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void pay_water(String user_id, String id) {
        userDao.pay_water(user_id,id);
+    }
+    @Override
+    public Water_elec_fee tongjiMarch(int user_id, String string) {
+        return statDao.tongjiMarch(user_id,string);
     }
 
 }

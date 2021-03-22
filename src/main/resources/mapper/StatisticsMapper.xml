@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzp.dao.StatisticsDao">
+	<select id="tongjiMarch" resultType="Water_elec_fee">
+		SELECT water,electricity,end_date FROM water_electricity 
+		WHERE user_id = #{param1} AND  end_date LIKE concat(#{param2},'%') LIMIT 1
+	</select>
+
+</mapper>

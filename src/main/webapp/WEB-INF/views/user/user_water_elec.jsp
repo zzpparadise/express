@@ -54,6 +54,7 @@
 							<li><a href="../userCentre/userInfo">个人中心</a></li>
 							<li><a href="express">我的快递</a></li>
 							<li><a href="user_complain_repair">报修/投诉</a></li>
+							<li><a href="user_statistics">统计</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="logout">退出登录</a></li>
 						</ul></li>
