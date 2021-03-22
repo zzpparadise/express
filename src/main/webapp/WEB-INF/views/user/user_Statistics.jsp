@@ -123,7 +123,7 @@ function tongji(year) {
 		data : {'year':year},
 		type : "GET",
 		success : function(result) {
-			 if(result.msg == 300){
+			 if(result.code == 300){
 				 alert(result.msg);
 				 return;
 			 }
