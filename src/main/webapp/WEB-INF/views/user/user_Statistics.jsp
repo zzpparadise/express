@@ -195,7 +195,7 @@ $("#user_find_btn").click(function(){
                 ],
                 series: [
                     {
-                        name: '提案分类统计图',
+                        name: '用水量',
                         type: 'bar',
                         itemStyle: {
                             normal: {
@@ -255,7 +255,7 @@ $("#user_find_btn").click(function(){
                 ],
                 series: [
                     {
-                        name: '提案分类统计图',
+                        name: '用电量',
                         type: 'bar',
                         itemStyle: {
                             normal: {
