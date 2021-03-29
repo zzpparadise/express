@@ -11,7 +11,7 @@
 		or date like concat(#{content},'%'))	
 	</select>
 	<update id="admin_shouli" parameterType="String">
-		update complain_repair set state = 1 where id = #{id} 
+		update complain_repair set state = 1,reply=#{param2} where id = #{param1} 
 	</update>
 	
 	<select id="admin_has_handle" resultType="Complain_reapir">

@@ -50,6 +50,7 @@
 								width="400">
 						</div>
 					</div>
+					
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -57,6 +58,39 @@
 			</div>
 		</div>
 	</div>
+	<!-- 受理问题-->
+	<div class="modal fade bs-example-modal-lg" id="handleModal"
+		tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">处理问题</h4>
+				</div>
+				<div class="modal-body">
+					<div class = "row">
+					<form class="form-horizontal" id ="reply_form">
+						<label for="inputEmail3" class="col-sm-3 control-label">回复用户：</label>
+							<div class="col-sm-9">
+								<textarea class="form-control" rows="3" name="reply"
+									id="reply" placeholder="添加回复，不得超过500字"></textarea>
+							</div>
+					</form>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary"
+						id="save_btn">回复</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 	<div>
 		<h4>待处理报修/投诉问题</h4>
 
@@ -262,6 +296,7 @@
 										$("#content_check")
 												.text(
 														result.extend.Complain_reapir.content);
+										
 										//图片
 										if (result.extend.Complain_reapir.img_path == "no_picture") {
 											$("#user_img").removeAttr("src");
@@ -282,24 +317,36 @@
 		to_page(urlPath, 1);
 	});
 	//受理问题
+	var id;
 	$(document).on("click", ".shouli", function() {
 		id = $(this).attr("id");
-		$.ajax({
-			url : "admin_shouli",
-			data:{
-				  'id' : id
-				},
-			type : "PUT",
-			success : function(result) {
-				if (result.code == 100) {
-					alert("已受理");
-					to_page(urlPath, currentPage);
-				}
-				if(result.code==300){
-					alert(result.msg);
-				}
-			}
+		//$("#handleModal form")[0].reset();
+		$("#reply_form")[0].reset();
+		$("#handleModal").modal({
+			backdrop : "static"
 		});
-	})
+		
+	});
+	//回复用户
+	$("#save_btn").click(function() {
+		 $.ajax({
+			url:"admin_shouli",
+			type:"PUT",
+			data:{
+				  'id' : id,
+				  'reply':$("#reply").val()
+				},
+			success:function(result){
+				if(result.code == 200){
+					alert("内容不能为空！");
+					return;
+				}
+				
+				alert(result.msg);
+				$("#handleModal").modal("hide");
+				
+			}
+		}); 
+	});
 </script>
 </html>

@@ -42,13 +42,18 @@
 					<h4 class="modal-title" id="myModalLabel">报修或投诉</h4>
 				</div>
 				<div class="modal-body">
-					<div class="row">
+					<div class = "row">
 						<div id="content_check" class="col-md-6"
 							style="font-size: 20px; color: blue"></div>
 						<div class="col-md-6">
 							<img id="user_img" alt="-------无图片-------" height="250"
 								width="400">
 						</div>
+					</div>
+					<div class="row">
+						<label for="inputEmail3" class="col-sm-2 control-label">处理结果：</label>
+						<div id="check_reply" class="col-md-10"
+							style="font-size: 20px; color: green"></div>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -262,6 +267,10 @@
 										$("#content_check")
 												.text(
 														result.extend.Complain_reapir.content);
+										//处理结果
+										$("#check_reply")
+												.text(
+														result.extend.Complain_reapir.reply);
 										//图片
 										if (result.extend.Complain_reapir.img_path == "no_picture") {
 											$("#user_img").removeAttr("src");

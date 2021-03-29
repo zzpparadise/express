@@ -13,7 +13,7 @@ public interface Admin_repair_complainDao {
 
     List<Complain_reapir> admin_find(String content);//按条件查询
 
-    void admin_shouli(String id);// 受理报修、投诉问题
+    void admin_shouli(String id, String reply);// 受理报修、投诉问题
 
     List<Complain_reapir> admin_has_handle();//管理员查询已受理报修投诉信息
 

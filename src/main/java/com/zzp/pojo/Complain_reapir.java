@@ -12,6 +12,7 @@ public class Complain_reapir {
     private String date;//发表时间
     private String tel;//电话
     private int state;//受理状态
+    private String reply;//管理员回复内容
     public int getId() {
         return id;
     }
@@ -71,6 +72,12 @@ public class Complain_reapir {
     }
     public void setState(int state) {
         this.state = state;
+    }
+    public String getReply() {
+        return reply;
+    }
+    public void setReply(String reply) {
+        this.reply = reply;
     }
     
     

@@ -63,11 +63,15 @@ import com.zzp.util.Msg;
     @RequestMapping(value="/admin_shouli",method=RequestMethod.PUT)
     @ResponseBody
     public Msg admin_shouli(@RequestParam(value = "id", required = false) String id,
+            @RequestParam(value = "reply", required = false) String reply,
             HttpSession session) {
       Admin admin = (Admin) session.getAttribute("admin");
       if(admin==null)
           return Msg.invalid();
-        arc.admin_shouli(id);
+      if(reply.equals("")) {
+          return Msg.fail();
+      }
+        arc.admin_shouli(id,reply);
        return Msg.success();
     }
   //管理员查询已受理报修投诉信息

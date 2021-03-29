@@ -22,8 +22,8 @@ public class Admin_repair_complainServiceImpl implements Admin_repair_complainSe
         return arcDao.admin_find(content);
     }
     @Override
-    public void admin_shouli(String id) {
-       arcDao.admin_shouli(id);
+    public void admin_shouli(String id,String reply) {
+       arcDao.admin_shouli(id,reply);
     }
     @Override
     public List<Complain_reapir> admin_has_handle() {
