@@ -19,7 +19,7 @@ public interface UserDao {
     public User findUserByTel(String user_tel);
     //用户注册
     public void insertUser(String user_name, String user_password,
-            String user_sex,String user_tel);
+            String user_sex,String user_tel, String string);
     //查询未取的快递
     public List<Express> getNoTaken(int userId);
     //获取所有快递

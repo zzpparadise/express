@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     }
     @Override
     public void insertUser(User user) {
-        userDao.insertUser(user.getUser_name(),user.getUser_password(),user.getUser_sex(),user.getUser_tel());
+        userDao.insertUser(user.getUser_name(),user.getUser_password(),user.getUser_sex(),user.getUser_tel(),user.getHouseholder_name());
        
     }
     @Override

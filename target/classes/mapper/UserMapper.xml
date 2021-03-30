@@ -13,7 +13,7 @@
 	</select>
 
 	<insert id="insertUser" parameterType="String">
-		insert into users values(null,#{param1},#{param2},#{param3},null,#{param4})
+		insert into users(user_name,user_password,user_sex,user_tel,householder_name) values(#{param1},#{param2},#{param3},#{param4},#{param5})
 	</insert>
 
 	<select id="getNoTaken" resultType="Express" parameterType="int">

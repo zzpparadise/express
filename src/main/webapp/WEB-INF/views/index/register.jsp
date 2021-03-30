@@ -27,9 +27,9 @@
 				<div style="height:50px"></div>
 				<form id="form" action="doRegister" method="post" class="form-horizontal">
 					<div class="form-group">
-						<label class="col-md-4" for="account">输入姓名</label>
+						<label class="col-md-4" for="account">设置昵称</label>
 						<div class="col-md-7">
-							<input type="text" name="user_name" id="user_name" class="form-control">
+							<input type="text" name="householder_name" id="householder_name" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">

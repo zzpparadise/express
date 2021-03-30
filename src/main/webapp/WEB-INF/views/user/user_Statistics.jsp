@@ -45,7 +45,7 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <c:if test="${ sessionScope.user != null }">
-						<li><a href="#">${ sessionScope.user.user_name }</a></li>
+						<li><a href="#">${ sessionScope.user.householder_name }</a></li>
 					</c:if>
 					<c:if test="${ sessionScope.user==null }">
 						<li><a href="../index/login">你好，请登录</a></li>

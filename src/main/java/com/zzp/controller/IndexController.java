@@ -27,6 +27,7 @@ import com.zzp.pojo.User;
 import com.zzp.service.UserService;
 import com.zzp.util.CpachaUtil;
 import com.zzp.util.Msg;
+import com.zzp.util.RandomCode;
 
 
 
@@ -139,7 +140,9 @@ public class IndexController {
                 return Msg.fail().add("telCheck", "手机号已被注册！");
         
         }
-        //添加用户    
+        //添加用户
+        String account = new RandomCode().newAccount();
+        user.setUser_name(account);
         userService.insertUser(user);
         session.setAttribute("user"+user.getUser_id(), user);
         return Msg.success().add("successRegister", "注册成功").add("user_id",user.getUser_id());

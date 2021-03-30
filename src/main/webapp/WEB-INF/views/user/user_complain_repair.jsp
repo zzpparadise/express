@@ -123,7 +123,7 @@
 				</form>
 				<ul class="nav navbar-nav navbar-right">
 					<c:if test="${ sessionScope.user != null }">
-						<li><a href="#">${ sessionScope.user.user_name }</a></li>
+						<li><a href="#">${ sessionScope.user.householder_name }</a></li>
 					</c:if>
 					<c:if test="${ sessionScope.user==null }">
 						<li><a href="../index/login">你好，请登录</a></li>
@@ -135,7 +135,7 @@
 							<li><a href="../userCentre/userInfo">个人中心</a></li>
 							<li><a href="express">我的快递</a></li>
 							<li><a href="user_water_elec">水电查询</a></li>
-							<li><a href="user_statistics">统计</a></li>
+							<li><a href="user_statistics">水电统计</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="logout">退出登录</a></li>
 						</ul></li>

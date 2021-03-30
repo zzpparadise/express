@@ -66,13 +66,13 @@ public class UserCentreController {
             }
             return Msg.fail().add("errorFields", map);
         }
-      //判断用户名和手机号是否已存在,更新用户信息
+      //判断手机号是否已存在,更新用户信息
         User user1=(User) session.getAttribute("user");
-        boolean nameCheck=us.checkUserName(user.getUser_name());           
-        if(!nameCheck){
-            if(!user1.getUser_name().equals(user.getUser_name()))           
-                return Msg.fail().add("nameCheck", "用户名已存在！");
-           }
+        //boolean nameCheck=us.checkUserName(user.getUser_name());           
+//        if(!nameCheck){
+//            if(!user1.getUser_name().equals(user.getUser_name()))           
+//                return Msg.fail().add("nameCheck", "用户名已存在！");
+//           }
         boolean telCheck=us.checkUserTel(user.getUser_tel());
         if(!telCheck) {
             if(!user1.getUser_tel().equals(user.getUser_tel()))
@@ -84,7 +84,7 @@ public class UserCentreController {
         }
         user.setUser_id(user1.getUser_id());
         userService.updateUser(user);
-        user1.setUser_name(user.getUser_name());
+        user1.setHouseholder_name(user.getHouseholder_name());
         user1.setUser_tel(user.getUser_tel());
         return Msg.success();
     }

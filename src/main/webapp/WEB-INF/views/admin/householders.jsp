@@ -336,6 +336,7 @@
 						item.householder_name);
 				var user_sex = $("<td></td>").append(item.user_sex);
 				var user_idnumber = $("<td></td>").append(item.user_idnumber);
+				//var user_name = $("<td></td>").append(item.user_name);
 				var hokou_address = $("<td></td>").append(item.hokou_address);
 				var live_date = $("<td></td>").append(item.live_date);
 				var house_type = $("<td></td>").append(item.house_type);
@@ -344,13 +345,15 @@
 				var user_tel = $("<td></td>").append(item.user_tel);
 				var editBtn = $("<button></button>").addClass(
 						"btn btn-primary btn-sm edit_btn").append("编辑");
-				var water_check = $("<button></button>").addClass(
+				var water_check = $("<button ></button>").addClass(
 				"btn btn-info btn-sm water_check").append("查看");
 				//为编辑按钮和录入按钮添加一个自定义的属性，来表示当前用户的id
 				editBtn.attr("user-id", item.user_id);
 				water_check.attr("user-id", item.user_id);
-				
-				var btnTd = $("<td></td>").append(editBtn).append("  ").append(water_check);
+				//为查看按钮添加提示框，显示用户账号
+				water_check.attr("data-toggle","tooltip").attr("data-placement","bottom")
+				.attr("title",item.user_name);
+				var btnTd = $("<td></td>").append(editBtn).append("   ").append(water_check);
 
 				$("<tr></tr>").append(checkBoxTd).append(householder_name)
 						.append(user_sex).append(user_idnumber).append(

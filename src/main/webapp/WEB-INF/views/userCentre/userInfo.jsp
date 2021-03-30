@@ -30,10 +30,10 @@
 					<form class="form-horizontal">
 					
 						<div class="form-group">
-							<label for="inputEmail3" class="col-sm-2 control-label">账号名</label>
+							<label for="inputEmail3" class="col-sm-2 control-label">名称</label>
 							<div class="col-sm-10">
-								<input type="email" class="form-control" name="user_name" id="userName_update_input"
-									placeholder="账号名">
+								<input type="email" class="form-control" name="householder_name" id="userName_update_input"
+									placeholder="昵称">
 								<span class="help-block"></span>
 							</div>
 						</div>
@@ -165,8 +165,8 @@
 			<div style="height: 100px"></div>
 				<h4 style="font-size:30px; font-family:华文行楷">个人信息</h4>
 				<table class="table table-hover" id="user_information">
-					<tr><td>用户id</td><td id="userId"></td></tr>
-					<tr><td>账号名</td><td id="userName"></td></tr>
+					<tr><td>名称</td><td id="householder_name"></td></tr>
+					<tr><td>账号</td><td id="userName"></td></tr>
 					<tr><td>性别</td><td id="userSex"></td></tr>
 					<tr><td>楼号</td><td id="userAddress"></td></tr>
 					<tr><td>电话</td><td id="userTel"></td></tr>
@@ -196,17 +196,22 @@
 		//用户信息
 		function build_user_table(result){
 			var user=result.extend.myInfo;
-			$("#userId").append(user.user_id).attr("user-id",user.user_id);
-			$("#userName").append(user.user_name).attr("user-name",user.user_name);
+			$("#householder_name").append(user.householder_name).attr("householder_name",user.householder_name);
+			$("#userName").append(user.user_name).attr("user-name",user.user_name).attr("is_master",user.is_master);
 			$("#userSex").append(user.user_sex).attr("user-sex",user.user_sex);
 			$("#userAddress").append(user.user_address).attr("user-address",user.user_address);
 			$("#userTel").append(user.user_tel).attr("user-tel",user.user_tel);
 		}
 		//“修改个人信息”按钮点击后出现模态框
 		$(document).on("click","#user_update_btn",function(){
+			//判断是不是户主
+			if($("#userName").attr("is_master")==1){
+				alert("您是户主，无法修改个人信息");
+				return;
+			}		
 			//清除表单数据（表单重置）
 			$("#userUpdateModal form")[0].reset();
-			$("#userName_update_input").val($("#userName").attr("user-name"));
+			$("#userName_update_input").val($("#householder_name").attr("householder_name"));
 			$("#userUpdateModal input[name=user_sex]").val([$("#userSex").attr("user-sex")]);
 			$("#tel_update_input").val($("#userTel").attr("user-tel"));
 			$("#address_update_input").val($("#userAddress").attr("user-address"));
