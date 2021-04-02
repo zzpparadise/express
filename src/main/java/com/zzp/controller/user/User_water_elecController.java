@@ -84,6 +84,13 @@ public class User_water_elecController {
         PageInfo page = new PageInfo(water, 5);
         return Msg.success().add("pageInfo", page);
     }
+    //跳转到支付页面
+    @RequestMapping("/return_pay")
+    public ModelAndView charge(ModelAndView model,@RequestParam(value="total_fee",required=false) String total_fee,HttpSession session) {
+        session.setAttribute("total_fee",total_fee);
+        model.setViewName("alipay/index");
+        return model;
+    }
     // 支付水电费
     @RequestMapping(value="/pay_water",method=RequestMethod.PUT)
     @ResponseBody

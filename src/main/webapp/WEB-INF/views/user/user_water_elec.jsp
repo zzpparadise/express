@@ -168,6 +168,7 @@
 							var total_fee = $("<td></td>").attr("style",
 									"background-color:#FA8072").append(
 									item.total_fee);
+							
 							var star_date = $("<td></td>").append(
 									item.star_date);
 							var end_date = $("<td></td>").append(item.end_date);
@@ -182,6 +183,7 @@
 								"btn btn-primary btn-sm pay_btn").append("支付");
 								//为按钮添加一个自定义的属性，来表示当前用户的account
 								pay_btn.attr("btn_user_id",item.id);
+								pay_btn.attr("total_fee",item.total_fee);
 							}
 							
 							
@@ -282,6 +284,24 @@
 	});
 	//“支付”按钮点击
 	$(document).on("click", ".pay_btn", function() {
+		total_fee = $(this).attr("total_fee");
+		$.ajax({
+			url : "return_pay",
+			data:{'total_fee':total_fee
+				},
+			type : "POST",
+			success : function(result) {
+				window.location.href="../alipay/index";
+			}
+		});
+	});
+	
+	
+	
+	
+	
+	
+	/* $(document).on("click", ".pay_btn", function() {
 		id = $(this).attr("btn_user_id");
 		$.ajax({
 			url : "pay_water",
@@ -300,6 +320,6 @@
 				}
 			}
 		});
-	});
+	}); */
 </script>
 </html>

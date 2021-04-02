@@ -28,7 +28,7 @@
 					//window.parent.location.href ="index";	
 					if(result.code == 100){				
 						
-								window.location.href="../user/express";
+								window.location.href="../user/user_water_elec";
 					}
 					else{
 						alert(result.extend.message);
