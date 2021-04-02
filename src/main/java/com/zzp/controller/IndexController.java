@@ -145,7 +145,7 @@ public class IndexController {
         user.setUser_name(account);
         userService.insertUser(user);
         session.setAttribute("user"+user.getUser_id(), user);
-        return Msg.success().add("successRegister", "注册成功").add("user_id",user.getUser_id());
+        return Msg.success().add("successRegister", "注册成功").add("account",account);
         
     }
     

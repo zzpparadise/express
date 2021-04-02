@@ -10,6 +10,7 @@
 <%@ page import="com.zzp.alipay.*"%>
 <%@ page import="com.alipay.api.*"%>
 <%@ page import="com.alipay.api.internal.util.*"%>
+<%@ page import="com.zzp.util.strategy.Pay"%>
 <%
 /* *
  * 功能：支付宝服务器同步通知页面
@@ -52,7 +53,12 @@
 		//付款金额
 		String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
 		
-		out.println("trade_no:"+trade_no+"<br/>out_trade_no:"+out_trade_no+"<br/>total_amount:"+total_amount);
+		out.println("支付成功！"+"<br/>支付宝交易号:"+trade_no+"<br/>商户订单号:"+out_trade_no+"<br/>付款金额:"+total_amount);
+		
+		String user_id = session.getAttribute("user_id").toString();
+		String id = session.getAttribute("id").toString();
+		new Pay().pay_water(user_id, id);
+		
 	}else {
 		out.println("验签失败");
 	}

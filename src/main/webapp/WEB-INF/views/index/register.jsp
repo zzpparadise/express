@@ -98,7 +98,7 @@
 			  success:function(result){
 				  
 				  if(result.code == 100){
-					  alert(result.extend.successRegister);
+					  alert(result.extend.successRegister+",您的账号为："+result.extend.account);
 					  window.location.href="";
 				  }
 				  else{

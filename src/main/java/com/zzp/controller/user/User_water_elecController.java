@@ -86,8 +86,12 @@ public class User_water_elecController {
     }
     //跳转到支付页面
     @RequestMapping("/return_pay")
-    public ModelAndView charge(ModelAndView model,@RequestParam(value="total_fee",required=false) String total_fee,HttpSession session) {
+    public ModelAndView charge(ModelAndView model,@RequestParam(value="total_fee",required=false) String total_fee,
+            @RequestParam(value = "user_id", required = false) String user_id,
+            @RequestParam(value = "id", required = false) String id,HttpSession session) {
         session.setAttribute("total_fee",total_fee);
+        session.setAttribute("user_id",user_id);
+        session.setAttribute("id",id);
         model.setViewName("alipay/index");
         return model;
     }

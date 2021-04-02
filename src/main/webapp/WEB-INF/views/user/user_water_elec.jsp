@@ -285,9 +285,12 @@
 	//“支付”按钮点击
 	$(document).on("click", ".pay_btn", function() {
 		total_fee = $(this).attr("total_fee");
+		id = $(this).attr("btn_user_id");
 		$.ajax({
 			url : "return_pay",
-			data:{'total_fee':total_fee
+			data:{'total_fee':total_fee,
+				  'user_id' : user_id,
+				  'id' : id
 				},
 			type : "POST",
 			success : function(result) {
